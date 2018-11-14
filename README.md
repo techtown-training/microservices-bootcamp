@@ -1,8 +1,9 @@
 # microservices-bootcamp
 ASPE's 3 day hands-on Microservices class, taught by an expert from Techtown labs.
 
-Course was initally developed  by Peter Lamar, with Golang exercises. 
-Course was updated by Shekhar Agrawal, with Java exercises
+Course was initally developed by Peter Lamar for ASPE, with Golang exercises. 
+
+Course was updated by Shekhar Agrawal of AgileBrains, with Java exercises
 
 The course as we currently advertise it- http://techtowntraining.com/courses/microservices-engineering-boot-camp
 
