@@ -24,8 +24,8 @@ sudo chmod +x /usr/local/bin/docker-compose
 
 ##### check docker and docker-compose
 ```bash
-docker version
-docker-compose version
+sudo docker version
+sudo docker-compose version
 ```
 
 ## * Clone the git project
@@ -77,3 +77,48 @@ This container is responsible for loading static data to redis datastore.
 * http://IP:8080/sample-monolithic-1.0/rest/retailDesign/combinedproduct?productId=1&id=1
 * http://IP:8080/sample-monolithic-1.0/rest/retailDesign/combinedproduct?productId=1&id=2
 
+<br>
+## * Source code
+
+<b>Docker file</b> for data loading to Redis
+
+```
+# docker build -f Dockerfile.dataloader -t java_mvn_redis_loader:1.0 .
+FROM maven
+
+RUN apt-get update
+RUN mkdir /code
+ADD . /code
+WORKDIR /code/restful-test
+
+CMD ["mvn", "clean", "install", "-U"]
+```
+
+<b> docker compose file </b> to start the app with 3 containers
+
+```
+version: "3"
+services:
+  retail_app:
+    image: tomcat
+    depends_on:
+      - "redis_loader"
+    volumes:
+     - ./restful-test/target/sample-monolithic-1.0.war:/usr/local/tomcat/webapps/sample-monolithic-1.0.war
+    ports:
+     - "8080:8080"
+
+  redis_loader:
+    image: java_mvn_redis_loader:1.0
+    container_name: redis_loader
+    command: mvn exec:java -Dexec.mainClass="com.app.startup.DataLoader"
+    depends_on:
+      - "redis"
+
+  redis:
+    image: "redis:alpine"
+    container_name: redis
+    ports:
+     - "6379:6379"
+#docker run -it -p 8080:8080 -v ~/restful-test/target/sample-monolithic-1.0.war:/usr/local/tomcat/webapps/sample-monolithic-1.0.war tomcat
+```
