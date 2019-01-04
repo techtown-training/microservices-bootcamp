@@ -2,11 +2,8 @@
 
 Kubernetes 101 workshop - introduction to Kubernetes and basic concepts
 
-## Installation
 
-First, follow [installation instructions](README.md#installation)
-
-## Running nginx
+## Part 1 Running nginx
 
 Everyone says that kubernetes is hard, however this proves otherwise!
 Let's create nginx service.
@@ -96,7 +93,7 @@ curl http://10.244.33.109
 Whoa! That worked! Our `sandbox` machine is joined to the cluster's overlay network, so you can access it directly, however in practice
 that's rarely necessary.
 
-### Pod Containers
+### Part 2 Pod Containers
 
 In our Nginx pod there's only one running container `my-nginx`, however as we've mentioned before we can have multiple
 containers running in single Pod.
