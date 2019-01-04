@@ -93,7 +93,7 @@ curl http://10.244.33.109
 Whoa! That worked! Our `sandbox` machine is joined to the cluster's overlay network, so you can access it directly, however in practice
 that's rarely necessary.
 
-### Part 2 Pod Containers
+### Pod Containers
 
 In our Nginx pod there's only one running container `my-nginx`, however as we've mentioned before we can have multiple
 containers running in single Pod.
@@ -160,7 +160,7 @@ drwxr-xr-x.   1 root root   90 May  4 02:38 var
 **Note:** when calling exec, don't forget `--`. You don't need to escape or join command arguments passed to exec really, `kubectl` will simply
 send everything after `--` as is.
 
-### Deployments and Replicasets
+### Part 2 Deployments and Replicasets
 
 So k8s created 2 Pods for us and that's it? Not really, it's a bit more advanced system and it really thought through the deployment lifecycle.
 K8s created a deployment with replicaset of 2 pods:
