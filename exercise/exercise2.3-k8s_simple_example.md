@@ -914,7 +914,7 @@ On your Vagrant the port most likely will be different!
 So on my computer I can now open mattermost app using one of the nodes IP:
 
 
-![mattermost](img/mattermost.png)
+![mattermost](images/mattermost.png)
 
 
 
