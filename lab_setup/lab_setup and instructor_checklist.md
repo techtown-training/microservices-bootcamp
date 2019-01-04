@@ -5,21 +5,6 @@
 - Select image `ami-09ae5ef93a75b002a` OR `microservices_kubernetes-bootcamp`
 - Type of instance required `t2.medium`
 - Enable `Auto-assign public IP`
-
-```
-*** Important
-(in Step 3 - Configure Instance Details), click on Advanced Details and paste the below content in the User Data Field.
-
-#!/bin/bash
-sudo su - root
-sudo sysctl net.bridge.bridge-nf-call-iptables=1
-kubeadm init --pod-network-cidr=10.244.0.0/16
-mkdir -p $HOME/.kube
-sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-sudo chown $(id -u):$(id -g) $HOME/.kube/config
-kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.9.1/Documentation/kube-flannel.yml
-kubectl taint nodes --all node-role.kubernetes.io/master-
-```
 - 16G storage
 - Select `all-in-all` security group
 
@@ -42,3 +27,17 @@ Test_Instance_and_Connection.docx
 ```
 
 All required instruction for testing in mentioned in the word document.
+
+
+<br>
+*** <b>Note</b> – no other “kubectl” command will run as of now, because setting `Kubernetes master` is included as a part of `exercise 2.1`, described here -- `https://github.com/techtown-training/microservices-bootcamp/blob/master/exercise/exercise2.1-install_kube_master.md`
+
+
+## Instance connection
+Three things are required to connect to AWS instance
+
+- <b>username:</b> ubuntu (all small case)
+- <b>Password:</b> There is no password, ASPE will provide the Default.ppk or Default.pem file. To mention here, if you are using unix/mac machines to connect, you need pem file, set the permission to `400`
+- <b>IP:</b> ASPE will provide the IP address, for this course we need 1 instance per student
+
+For the microservice course, the instance will have Docker and kubernetes packages installed in it. But it doesnt have kubernetes master setup. That has been included in the mandatory exercise 2.1
