@@ -14,6 +14,7 @@ Now tell Kubernetes to create the Replication Controller based on that file:
 # kubectl create -f rc.yaml
 replicationcontroller "soaktestrc" created
 ```
+
 Let’s take a look at what we have using the describe command:
 
 ```
@@ -47,6 +48,7 @@ soaktestrc-ro2bl   1/1       Running   0          3m
 
 Delete one of the pods (out of 3)
 If you delete one of the pods manually, then the replication controller will create one to match the desired numbers of pods to be 3.
+
 ```
 # kubectl delete pod/<pod_name>
 pod "<pod_name>" deleted
@@ -62,7 +64,9 @@ Clean up the Replication Controllers
 # kubectl delete rc soaktestrc
 replicationcontroller "soaktestrc" deleted
 ```
+
 check if the pods got deleted
+
 ```
 # kubectl get rc,po --show-labels -l app=soaktestrc
 As you can see, when you delete the Replication Controller, you also delete all of the pods that it created.
@@ -75,7 +79,7 @@ Replica Sets are a sort of hybrid, in that they are in some ways more powerful t
 and in others they are less powerful. Replica Sets are declared in essentially the same way as Replication Controllers, 
 except that they have more options for the selector. Use the file rs.yaml for this part
 
-rs.yaml file is located in - https://github.com/shekhar2010us/kubernetes_teach_git/blob/master/ex1/rs.yaml
+rs.yaml file is located in - https://github.com/techtown-training/microservices-bootcamp/blob/master/exercise/src_code/kubernetes_additional_exercise/ex2.5/rs.yaml
 
 In this case, it’s more or less the same as when we were creating the Replication Controller, 
 except we’re using matchLabels instead of label.  But we could just as easily have said (has matchExpressions):
@@ -99,6 +103,7 @@ In the above case, we’re looking at two different conditions: The app label mu
 # kubectl create -f rs.yaml
 replicaset "soaktestrs" created
 ```
+
 We can describe the Replica Sets
 
 ```
@@ -118,7 +123,9 @@ Events:
   1m            1m              1       {replicaset-controller }                       Normal  SuccessfulCreate Created pod: soaktestrs-kimmm
   1m            1m              1       {replicaset-controller }                        Normal  SuccessfulCreate Created pod: soaktestrs-8i4ra
 ```
+
 We can get the pods
+
 ```
 # kubectl get pods
 NAME               READY     STATUS    RESTARTS   AGE
@@ -126,6 +133,7 @@ soaktestrs-8i4ra   1/1       Running   0          1m
 soaktestrs-it2hf   1/1       Running   0          1m
 soaktestrs-kimmm   1/1       Running   0          1m
 ```
+
 As we can see, the output is pretty much the same as for a Replication Controller (except for the selector), 
 and for most intents and purposes, they are similar.  
 
@@ -136,6 +144,7 @@ in the same location :-
 kubectl create -f rs_selector2.yaml
 kubectl get po,rs --show-labels
 ```
+
 and this gives an error 
 
 ```
@@ -155,11 +164,14 @@ replicaset "soaktestrs" deleted
 # kubectl delete rs soaktestrs1
 replicaset "soaktestrs1" deleted
 ```
+
 Again, the pods that were created are deleted when we delete the Replica Set.
+
 ```
 # kubectl get pods,rc,rs
 --- there shouldn't be any pod, rc, rs resources available. If you have any then delete it.
 ```
+
 ## Deployments
 
 Deployments are intended to replace Replication Controllers.  They provide the same replication functions
@@ -167,7 +179,7 @@ Deployments are intended to replace Replication Controllers.  They provide the s
 
 You first have to create a simple Deployment (you can find it in the git repo)  
 <br>
-deploy_backed_by_rs.yaml is located in - https://github.com/shekhar2010us/kubernetes_teach_git/blob/master/ex1/deploy_backed_by_rs.yaml
+deploy_backed_by_rs.yaml is located in - https://github.com/techtown-training/microservices-bootcamp/blob/master/exercise/src_code/kubernetes_additional_exercise/ex2.5/deploy_backed_by_rs.yaml
 
 Now go ahead and create the Deployment:
 
@@ -175,7 +187,9 @@ Now go ahead and create the Deployment:
 # kubectl create -f deploy_backed_by_rs.yaml
 deployment "soaktest" created
 ```
+
 Now let’s go ahead and describe the Deployment:
+
 ```
 # kubectl describe deployment soaktest
 Name:                   soaktest
@@ -194,7 +208,8 @@ Events:
   ---------     --------        -----   ----                            -------------   --------------                   -------
   38s           38s             1       {deployment-controller }                        Normal  ScalingReplicaSet        Scaled up replica set soaktest-3914185155 to 3
   36s           36s             1       {deployment-controller }                        Normal  ScalingReplicaSet        Scaled up replica set soaktest-3914185155 to 5
-  ```
+```
+  
 As you can see, rather than listing the individual pods, Kubernetes shows us the Replica Set.  
 Notice that the name of the Replica Set is the Deployment name and a hash value.
 
