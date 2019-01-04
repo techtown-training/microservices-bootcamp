@@ -1,4 +1,4 @@
-## Set up for Microservices Lab
+## Set up for Java project - Microservices deployed using Kubernetes
 
 ----------
 
@@ -11,13 +11,13 @@ Update the apt-get package manager and install necessary packages in the machine
 ### Step 2: Clone the git project
 Clone the existing git project
 <br>
-`git clone https://github.com/shekhar2010us/microservices_kubernetes_docker.git`
+`git clone https://github.com/techtown-training/microservices-bootcamp.git`
 <br>
 
 ### Step 3: Maven build shopfront service and build docker image
 Go to the shopfront project folder, build the maven project to create jar and build the docker image
 <br>
-`cd microservices_kubernetes_docker/shopfront/`
+`cd exercise/src_code/microservices_kubernetes_docker/shopfront/`
 <br>
 `mvn clean install -DskipTests`
 <br>
@@ -142,7 +142,7 @@ Alternatively, we can test this in browser
 
 
 Now let's clean up
+
 ```
 kubectl delete --all svc,rc,deploy,pod,hpa --namespace=default
-
 ```
