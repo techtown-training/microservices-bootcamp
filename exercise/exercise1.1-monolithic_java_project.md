@@ -3,7 +3,7 @@
 ## * Setting up the machine
 
 ```bash
-ssh username@FQDN
+ssh ubuntu@FQDN
 ```
 
 #### apt-get update and install java, git, maven
@@ -12,22 +12,9 @@ sudo apt-get -y update
 sudo apt-get -y install default-jdk git maven redis-tools
 ```
 
-### Please note that docker installation is needed only if your machine doesn't have docker
-#### install docker
+#### It is assumed that your machine has Docker installed in it. If not, please install Docker.
 
-```bash
-curl -sSL https://get.docker.com/ | sh
-```
-
-##### add sudo access to the user
-
-```bash
-sudo groupadd docker
-sudo usermod -aG docker $USER
-#exit and login again
-```
-
-### Please note that docker-compose installation is needed only if your machine doesn't have docker-compose
+### Note that docker-compose installation is needed only if your machine doesn't have docker-compose
 #### install docker-compose
 
 ```bash
@@ -44,8 +31,8 @@ docker-compose version
 ## * Clone the git project
 
 ```bash
-git clone https://github.com/shekhar2010us/microservices_monolithic_docker.git
-cd microservices_monolithic_docker/
+git clone https://github.com/techtown-training/microservices-bootcamp.git
+cd microservices-bootcamp/exercise/src_code/microservices_monolithic_docker/
 ```
 
 #### build the maven project locally
@@ -59,17 +46,17 @@ cd ..
 #### build the Docker image for the maven project and redis data upload
 
 ```bash
-docker build -f Dockerfile.dataloader -t java_mvn_redis_loader:1.0 .
+sudo docker build -f Dockerfile.dataloader -t java_mvn_redis_loader:1.0 .
 ```
 
 #### run the docker-compose
 ```bash
-docker-compose up -d
+sudo docker-compose up -d
 ```
 
 #### check running docker containers
 ```bash
-docker ps
+sudo docker ps
 ```
 
 Wait until "redis_loader" container gets killed. <br>
