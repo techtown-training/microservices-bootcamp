@@ -519,7 +519,7 @@ REVISION	CHANGE-CAUSE
 [Deployments](http://kubernetes.io/docs/user-guide/deployments/) are a very powerful tool, and we've barely scratched the surface of what they can do. Check out [docs](http://kubernetes.io/docs/user-guide/deployments/) for more detail.
 
 
-### Configuration management basics
+### Part 3 Configuration management basics
 
 Well, our `nginx`es are up and running, let's make sure they actually do something useful by configuring them to say `hello, kubernetes!`
 
@@ -642,7 +642,7 @@ curl http://my-nginx
 hello, Kubernetes!
 ```
 
-### Connecting services
+### Part 4 Connecting services
 
 Let's deploy a bit more complicated stack. In this excercise we will deploy [Mattermost](http://www.mattermost.org) - an alternative to Slack that can run
 on your infrastructure. We will build our own containers and configuration, push it to the registry and
