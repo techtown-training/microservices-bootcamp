@@ -10,12 +10,13 @@ sed -ie "s/#00LAB00#/${LAB_NUMBER}/g" fargate-task.json
 aws ecs register-task-definition --cli-input-json file://$HOME/microservices-bootcamp/exercise/fargate/source/04/fargate-task.json
 ~~~
 
+# Fix task number
 ~~~bash
 aws ecs create-service --cluster fargate-cluster-${LAB_NUMBER} --service-name fargate-service-${LAB_NUMBER} --task-definition fargate-${LAB_NUMBER}:1 --desired-count 1 --launch-type "FARGATE" --network-configuration "awsvpcConfiguration={subnets=[${LAB_SUBNET}],securityGroups=[${LAB_SECURITYGROUP}],assignPublicIp=ENABLED}"
 ~~~
 
 ~~~bash
-aws ecs list-service --cluster fargate-cluster-${LAB_NUMBER}
+aws ecs list-services --cluster fargate-cluster-${LAB_NUMBER}
 ~~~
 
 ~~~bash

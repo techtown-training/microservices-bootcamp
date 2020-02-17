@@ -1,9 +1,9 @@
 {
-    "family": "fargate-#00lab00#",
+    "family": "fargate-#00LAB00#",
     "networkMode": "awsvpc",
     "containerDefinitions": [
         {
-            "name": "fargate-app-#00lab00#",
+            "name": "fargate-app-#00LAB00#",
             "image": "nginx:stable-alpine",
             "portMappings": [
                 {
