@@ -1,0 +1,30 @@
+{
+    "family": "fargate-#00lab00#",
+    "networkMode": "awsvpc",
+    "containerDefinitions": [
+        {
+            "name": "fargate-app-#00lab00#",
+            "image": "nginx:stable-alpine",
+            "portMappings": [
+                {
+                    "containerPort": 80,
+                    "hostPort": 80,
+                    "protocol": "tcp"
+                }
+            ],
+            "essential": true,
+            "entryPoint": [
+                "sh",
+		"-c"
+            ],
+            "command": [
+                "/bin/sh -c \"echo '<html> <head> <title>Lab - Exercise03</title> <style>body {margin-top: 40px; background-color: #333;} </style> </head><body> <div style=color:white;text-align:center> <h1>Fargate - Lab - Exercise03 - #00LAB00#</h1> <h2>Congratulations!</h2> <p>Your application is now running in Fargate.</p> </div></body></html>' >  /usr/share/nginx/html/index.html && exec nginx -g 'daemon off;'\""
+            ]
+        }
+    ],
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "cpu": "256",
+    "memory": "512"
+}

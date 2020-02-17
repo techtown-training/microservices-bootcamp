@@ -1,0 +1,131 @@
+---
+- name: '{{ hostname }} - Wait for ssh'
+  hosts: all
+  gather_facts: no
+  become: no
+  tasks:
+    - name: '{{ hostname }} - Waiting...'
+      local_action: wait_for port=22 host="{{ ip }}" search_regex=OpenSSH delay=10 timeout=360
+
+- name: '{{ hostname }} - Provision Instance'
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: '{{ hostname }} - update apt-cache'
+      raw: apt update -y
+    - name: '{{ hostname }} - install python-apt'
+      raw: apt install python-apt -y
+
+- name: '{{ hostname }} - Hostname and Upgrade'
+  hosts: all
+  tasks:
+    - name: '{{ hostname }} - hostname'
+      hostname:
+        name: "{{ hostname }}"
+    - name: '{{ hostname }} - upgrade'
+      apt:
+        upgrade: yes
+        update_cache: yes
+
+- name: '{{ hostname }} - Reboot the Instance'
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: '{{ hostname }} - Rebooting...'
+      shell: sleep 2 && shutdown -r now "Ansible updates triggered"
+      async: 1
+      poll: 0
+
+- name: '{{ hostname }} - Wait for ssh'
+  hosts: all
+  gather_facts: no
+  become: no
+  tasks:
+    - name: '{{ hostname }} - Waiting...'
+      local_action: wait_for port=22 host="{{ ip }}" search_regex=OpenSSH delay=10 timeout=360
+
+# - name: '{{ hostname }} - Docker'
+#   hosts: all
+#   tasks:
+#     - name: '{{ hostname }} - Add Docker GPG key'
+#       apt_key: url=https://download.docker.com/linux/ubuntu/gpg
+#     - name: '{{ hostname }} - Add Docker APT repository'
+#       apt_repository:
+#         repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable
+#     - name: '{{ hostname }} - Install docker-ce-cli'
+#       apt:
+#         name: docker-ce-cli={{ dockerversion }}
+#         state: present
+#         update_cache: yes
+#     - name: '{{ hostname }} - Install docker-ce'
+#       apt:
+#         name: docker-ce={{ dockerversion }}
+#         state: present
+#         update_cache: yes
+#     - name: '{{ hostname }} - Start Docker'
+#       service:
+#         name: docker
+#         state: started
+#         enabled: yes
+#     - name: '{{ hostname }} - Hold Docker CLI Version'
+#       dpkg_selections:
+#         name: docker-ce-cli
+#         selection: hold
+#     - name: '{{ hostname }} - Hold Docker Version'
+#       dpkg_selections:
+#         name: docker-ce
+#         selection: hold
+#     - name: '{{ hostname }} - Add ubuntu user to docker group'
+#       user:
+#         name: ubuntu
+#         groups: docker
+#         state: present
+#       ignore_errors: yes
+
+- name: '{{ hostname }} - AWS CLI'
+  hosts: all
+  tasks:
+    - name: '{{ hostname }} - Install awscli'
+      apt:
+        name: awscli
+        state: present
+        update_cache: yes
+    - name: Set home directory to /home/ubuntu/.aws
+      set_fact:
+        aws_user_dir: /home/ubuntu/.aws
+    - name: Create aws cli directory
+      file:
+        path: "{{ aws_user_dir }}"
+        state: directory
+        owner: ubuntu
+        group: ubuntu
+        mode: 0700
+    - name: Create aws cli config file
+      vars:
+        profiles:
+          - name: default
+            region: '{{ labawsregion }}'
+            output: text
+            aws_access_key_id: '{{ labawsaccess }}'
+            aws_secret_access_key: '{{ labawssecret }}'
+      template:
+        src: aws_config.j2
+        dest: "{{ aws_user_dir }}/config"
+        owner: ubuntu
+        group: ubuntu
+        mode: 0600
+    - name: Create aws cli credentials file
+      vars:
+        profiles:
+          - name: default
+            region: '{{ labawsregion }}'
+            output: text
+            aws_access_key_id: '{{ labawsaccess }}'
+            aws_secret_access_key: '{{ labawssecret }}'
+      template:
+        src: aws_credentials.j2
+        dest: "{{ aws_user_dir }}/credentials"
+        owner: ubuntu
+        group: ubuntu
+        mode: 0600
+...
