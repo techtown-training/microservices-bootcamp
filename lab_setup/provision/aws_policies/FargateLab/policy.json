@@ -48,6 +48,8 @@
         "ecr:ListImages",
         "ecr:DescribeImages",
         "ecr:BatchGetImage",
+        "ecr:CreateRepository",
+        "ecr:DeleteRepository",
         "ecr:GetLifecyclePolicy",
         "ecr:GetLifecyclePolicyPreview",
         "ecr:ListTagsForResource",

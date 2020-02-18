@@ -33,5 +33,5 @@ docker container rm webApp
 ~~~
 
 ~~~bash
-docker image rm nginx:1.7
+docker image rm nginx:1.17
 ~~~
