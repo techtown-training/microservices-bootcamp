@@ -22,6 +22,7 @@ export LAB_SUBNET=`aws ec2 describe-subnets --filters Name=tag:Course,Values=MIC
 export LAB_SECURITYGROUP=`aws ec2 describe-security-groups --filters Name=tag:Course,Values=MICROENGINEER --query 'SecurityGroups[].GroupId' --output text`
 export AWS_ACCOUNT_ID=`aws iam get-user --output json --query 'User.Arn' | cut -d: -f5`
 export AWS_REGION=`cat ~/.aws/config | grep ^region | awk '{print $3}'`
+export AWS_EIP=`curl http://ifconfig.io`
 ~~~
 
 As before lets make this environment variable persist to new shells:
@@ -31,6 +32,7 @@ echo "export LAB_SUBNET=${LAB_SUBNET}" >> .bashrc
 echo "export LAB_SECURITYGROUP=${LAB_SECURITYGROUP}" >> .bashrc
 echo "export AWS_ACCOUNT_ID=${AWS_ACCOUNT_ID}" >> .bashrc
 echo "export AWS_REGION=${AWS_REGION}" >> .bashrc
+echo "export AWS_EIP=${AWS_EIP}" >> .bashrc
 ~~~
 
 Through out the labs we will require a number of source files.  We can download this Git repo to the '~/microservices-bootcamp' directory:

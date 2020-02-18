@@ -1,0 +1,23 @@
+{% if membership.invited_by %}
+    {% set sender_full_name=membership.invited_by.get_full_name() %}
+{% else %}
+    {% set sender_full_name=_("someone") %}
+{% endif %}
+{% trans full_name=sender_full_name, project=membership.project %}
+You, or someone you know, has invited you to Taiga
+
+Hi! {{ full_name }} has sent you an invitation to join a project called {{ project }}  which is being managed on Taiga, a Free, open Source Agile Project Management Tool.
+{% endtrans %}
+{% if membership.invitation_extra_text %}
+    {% trans extra=membership.invitation_extra_text %}
+And now a few words from the jolly good fellow or sistren who thought so kindly as to invite you:
+
+{{ extra }}
+    {% endtrans %}
+{% endif %}
+{{ _("Accept your invitation to Taiga following this link:") }}
+{{ resolve_front_url("invitation", membership.token) }}
+{% trans %}
+---
+The Taiga Team
+{% endtrans %}

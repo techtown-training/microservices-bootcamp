@@ -1,0 +1,10 @@
+{% trans user=user.get_full_name(), changer=changer.get_full_name(), project=project.name, page=snapshot.slug %}
+Wiki page deleted
+
+Hello {{ user }}, {{ changer }} has deleted a wiki page on {{ project }}
+
+Wiki page {{ page }}
+
+---
+The Taiga Team
+{% endtrans %}
