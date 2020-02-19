@@ -1,3 +1,3 @@
 # Exercise 14: Wordpress on Kubernetes
 
-Microk8s
+## This exercise needs finalize it will be finish shortly

@@ -1,3 +1,3 @@
 # Exercise 16: Scaling the App
 
-Fargate
+## This exercise needs finalize it will be finish shortly

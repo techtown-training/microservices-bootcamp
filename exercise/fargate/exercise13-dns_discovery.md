@@ -1,5 +1,7 @@
 # Exercise 13: DNS Discovery
 
+## This exercise needs finalize it will be finish shortly
+
 Microk8s
 
 ~~~bash

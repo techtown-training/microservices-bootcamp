@@ -1,0 +1,33 @@
+plugins {
+    id 'java'
+    id 'idea'
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        url 'https://dl.bintray.com/palantir/releases' // docker-compose-rule is published on bintray
+    }
+}
+
+dependencies {
+    compile 'com.amazonaws:aws-java-sdk-dynamodb:1.11.86'
+    compile 'org.apache.commons:commons-lang3:3.5'
+    compile 'ch.qos.logback:logback-classic:1.1.10'
+
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.assertj:assertj-core:3.6.2'
+    testCompile 'com.palantir.docker.compose:docker-compose-rule:0.28.1'
+}
+
+test {
+    useJUnit {
+        excludeCategories 'com.tomasulo.sample.IntegrationTest'
+    }
+}
+
+task integrationTest(type: Test) {
+    useJUnit {
+        includeCategories 'com.tomasulo.sample.IntegrationTest'
+    }
+}
