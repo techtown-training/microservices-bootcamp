@@ -53,7 +53,7 @@ We can verify that the container is now removed by listing the current container
 docker container ls -a
 ~~~
 
-Now is a good time to mention an additional docker shortcut, would it not be nice to be able to run a docker container and have it remove itself when it exits cleanly?  Fortunately the "--rm" option is for just the case:
+Now is a good time to mention an additional docker shortcut, would it not be nice to be able to run a docker container and have it remove itself when the processes in that container exits?  Fortunately the "--rm" option is for just the case:
 ~~~bash
 docker run --rm hello-world
 ~~~

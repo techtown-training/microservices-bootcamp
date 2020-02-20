@@ -45,8 +45,8 @@ sudo adduser $USER docker
 
 We added our "ubuntu" user to the "docker" group but that change is not realized until a new shell is created.  One option is a bit of a hack but we can switch our primary group to "docker" then switch it back to "ubuntu" to relize that new group at the expense of a bit of bash history.  An alterative is to exit the shell and login again.
 ~~~bash
-newgroup docker
-newgroup ubuntu
+newgrp docker
+newgrp ubuntu
 ~~~
 
 #### Verify Docker

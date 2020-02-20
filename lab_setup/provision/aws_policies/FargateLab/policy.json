@@ -38,6 +38,7 @@
         "application-autoscaling:DeleteScalingPolicy",
         "application-autoscaling:RegisterScalableTarget",
         "cloudwatch:DescribeAlarms",
+        "cloudwatch:GetMetricStatistics",
         "cloudwatch:PutMetricAlarm",
         "ec2:Describe*",
         "ecr:GetAuthorizationToken",
