@@ -17,12 +17,6 @@ Now let's go ahead and link the docker-compose executable to /usr/bin/docker-com
 sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 ~~~
 
-#### verify the docker-compose file used ####
-# ~~~bash
-# sudo curl -L https://raw.githubusercontent.com/docker/compose/1.25.3/contrib/completion/bash/docker-compose -o /etc/bash_completion.d/docker-compose
-# ~~~
-
-
 Let's verify that docker compose is loading by having it report it's version:
 ~~~bash
 docker-compose --version
@@ -77,7 +71,7 @@ And to make sure the containers are cleaned up:
 docker-compose rm
 ~~~
 
-Docker-compose is a very handly tool when running workload on a single host.  To get more of an idea what docker-compose does check out the online help provided:
+Docker-compose is a very handy tool when running workload on a single host.  To get more of an idea what docker-compose does check out the online help provided:
 ~~~bash
 docker-compose help
 ~~~
