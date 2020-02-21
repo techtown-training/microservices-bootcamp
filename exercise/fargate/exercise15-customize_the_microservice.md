@@ -19,7 +19,7 @@ cd ~/myFargate/image
 
 Now in this directory create a Dockerfile for your image.  Here is an example Dockerfile but feel free to make your own:
 ~~~yaml
-FROM alpine:3:11
+FROM alpine:3.11
 MAINTAINER Jordan Clark mail@jordanclark.us
 
 ENV S6_OVERLAY_VERSION 1.22.1.0
@@ -40,7 +40,7 @@ rm /etc/nginx/nginx.conf && \
 wget -P /etc/nginx/ https://raw.githubusercontent.com/p42/nginx-s6-alpine-docker/master/container-files/etc/nginx/nginx.conf && \
 wget -P /etc/services.d/ https://raw.githubusercontent.com/p42/nginx-s6-alpine-docker/master/container-files/etc/services.d/nginx/run
 
-RUN echo '<html> <head> <title>myFargate</title> <style>body {margin-top: 40px;} </style> </head><body> <div style=text-align:center> <h1>myFargate</h1> <h2>Congratulations!</h2> <p>My application is running in Fargate.</p> </div></body></html>' > /usr/share/nginx/html/index.html
+RUN echo '<html> <head> <title>myFargate</title> <style>body {margin-top: 40px;} </style> </head><body> <div style=text-align:center> <h1>myFargate</h1> <h2>Congratulations!</h2> <p>My application is running in Fargate.</p> </div></body></html>' > /var/lib/nginx/html/index.html
 
 ENTRYPOINT ["/init"]
 ~~~
