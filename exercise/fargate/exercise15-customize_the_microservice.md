@@ -84,6 +84,10 @@ Let's customize the image to use in the task:
 sed -ie "s/#00IMAGE00#/${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com\/${LAB_NUMBER}-repo\/myfargate:latest/g" myfargate-task.json
 ~~~
 
+We need to attach the AWS Account ID:
+~~~bash
+sed -ie "s/#00AWSID00#/${AWS_ACCOUNT_ID}/g" myfargate-task.json
+~~~
 
 Take a look at your "myfargate-task.json" file if there are changes feel free to adjust as desired.  When you are ready let's register the task definition with AWS:
 ~~~bash

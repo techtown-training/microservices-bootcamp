@@ -1,6 +1,7 @@
 {
     "family": "myfargate-#00LAB00#",
     "networkMode": "awsvpc",
+    "ExecutionRoleArn: arn:aws:iam::XXXXX:role/ecsTaskExecutionRole**",
     "containerDefinitions": [
         {
             "name": "myfargate-app-#00LAB00#",
@@ -19,5 +20,6 @@
         "FARGATE"
     ],
     "cpu": "256",
-    "memory": "512"
+    "memory": "512",
+    "executionRoleArn": "arn:aws:iam::#00AWSID00##:role/ecsTaskExecutionRole"
 }

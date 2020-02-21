@@ -77,7 +77,8 @@
         "iam:ListAttachedRolePolicies",
         "iam:ListRoles",
         "iam:ListGroups",
-        "iam:ListUsers"
+        "iam:ListUsers",
+        "iam:PassRole"
       ],
       "Resource": [
         "*"
