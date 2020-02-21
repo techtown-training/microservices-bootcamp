@@ -55,6 +55,11 @@ And let's tag that image for ECR:
 docker tag myfargate:latest ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${LAB_NUMBER}-repo/myfargate:latest
 ~~~
 
+Before we push the image to the ECR we first need to create the repository:
+~~~bash
+aws ecr create-repository --repository-name ${LAB_NUMBER}-repo/myfargate
+~~~
+
 Now that that image is properly tagged we can now push it to the ECR:
 ~~~bash
 docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${LAB_NUMBER}-repo/myfargate:latest
