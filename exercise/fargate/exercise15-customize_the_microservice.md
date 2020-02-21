@@ -1,13 +1,16 @@
 # Exercise 15: Customize the Micro-service
 
-## This exercise needs finalize it will be finish shortly
-
 In this lab the desire is to build on skills we have used in the previous labs to build our own docker image, push that image to an ECR and finally deploy that image as a task on a Fargate service.
 
 I have some examples in this directory but the idea is for you to customize build your own images.
 
-So lets first have a directory to work in:
+First lets make sure we have the latest source files:
+~~~bash
+cd microservices-bootcamp/
+git pull
+~~~
 
+So lets have some local directories to work in:
 ~~~bash
 mkdir -p ~/myFargate/image
 mkdir ~/myFargate/task
@@ -28,10 +31,16 @@ cd /tmp && \
 wget https://github.com/just-containers/s6-overlay/releases/download/v$S6_OVERLAY_VERSION/s6-overlay-amd64.tar.gz && \
 echo "$S6_OVERLAY_MD5HASH *s6-overlay-amd64.tar.gz" | md5sum -c - && \
 tar xzf s6-overlay-amd64.tar.gz -C / && \
-rm s6-overlay-amd64.tar.gz
+rm s6-overlay-amd64.tar.gz && \
+wget -P /etc/cont-init.d/ https://raw.githubusercontent.com/p42/s6-alpine-docker/3.11/container-files/etc/cont-init.d/00_bootstrap.sh
 
 RUN apk add --no-cache nginx && \
-mkdir /run/nginx
+mkdir /run/nginx && \
+rm /etc/nginx/nginx.conf && \
+wget -P /etc/nginx/ https://raw.githubusercontent.com/p42/nginx-s6-alpine-docker/master/container-files/etc/nginx/nginx.conf && \
+wget -P /etc/services.d/ https://raw.githubusercontent.com/p42/nginx-s6-alpine-docker/master/container-files/etc/services.d/nginx/run
+
+RUN echo '<html> <head> <title>myFargate</title> <style>body {margin-top: 40px;} </style> </head><body> <div style=text-align:center> <h1>myFargate</h1> <h2>Congratulations!</h2> <p>My application is running in Fargate.</p> </div></body></html>' > /usr/share/nginx/html/index.html
 
 ENTRYPOINT ["/init"]
 ~~~
@@ -57,7 +66,7 @@ cd ~/myFargate/task
 ~~~
 
 ~~~bash
-cp ~/microservices-bootcamp/exercise/fargate/source/15/template-fargate-task.json myfargate-task.json
+cp ~/microservices-bootcamp/exercise/fargate/source/15/template-custom-task.json myfargate-task.json
 ~~~
 
 Let's make some local modifications to our task definitions to include our unique lab ID.  We will edit the task definition file in place using 'sed':
@@ -83,12 +92,12 @@ aws ecs list-task-definitions
 
 We need to store the task definition ID for our registered task into an environment variable to use later:
 ~~~bash
-export MYTASK_DEFINITION=`aws ecs list-task-definitions --output text | grep fargate-${LAB_NUMBER} | head -n1 | cut -d/ -f2`
+export MYTASK_DEFINITION=`aws ecs list-task-definitions --output text | grep myfargate-${LAB_NUMBER} | tail -n1 | cut -d/ -f2`
 ~~~
 
 Now that we have the task definition defined let's create the service that runs that task within Fargate on our own fargate cluster:
 ~~~bash
-aws ecs create-service --cluster fargate-cluster-${LAB_NUMBER} --service-name fargate-service-${LAB_NUMBER} --task-definition ${TASK_DEFINITION} --desired-count 1 --launch-type "FARGATE" --network-configuration "awsvpcConfiguration={subnets=[${LAB_SUBNET}],securityGroups=[${LAB_SECURITYGROUP}],assignPublicIp=ENABLED}"
+aws ecs create-service --cluster fargate-cluster-${LAB_NUMBER} --service-name myfargate-service-${LAB_NUMBER} --task-definition ${MYTASK_DEFINITION} --desired-count 1 --launch-type "FARGATE" --network-configuration "awsvpcConfiguration={subnets=[${LAB_SUBNET}],securityGroups=[${LAB_SECURITYGROUP}],assignPublicIp=ENABLED}"
 ~~~
 
 We can checkout what services are running on our lab:
@@ -116,4 +125,4 @@ Now we can lookup the Puplic IP address of that TASK_NETWORK_INTERFACE_ID.  That
 aws ec2 describe-network-interfaces --network-interface-ids ${TASK_NETWORK_INTERFACE_ID} --query 'NetworkInterfaces[0].Association.PublicIp' --output text
 ~~~
 
-Try connecting to that IP using a local browser on your machine over http.  So you should connect to "http://<FargateServiceIP>", replacing "FargateServiceIP" with the IP returned from the previous command.  If all goes well you should be presented with a webpage customized for your specific lab instance.
+If you are running a web service you can try connecting to that IP using a local browser on your machine over http.  So you should connect to "http://<FargateServiceIP>", replacing "FargateServiceIP" with the IP returned from the previous command.  If all goes well you should be presented with a webpage customized for your specific lab instance.

@@ -1,15 +1,20 @@
 # Exercise 16: Scaling the App
 
-## This exercise needs finalize it will be finish shortly
-
-Next let's cleanup after ourselves.  Before we can remove our service we first need to shutdown the tasks running for that service.  We can do that by setting our "desired-count" to "0":
+Let's look at scaling the myFargate service by adjusting the desired-count:
 ~~~bash
-aws ecs update-service --cluster fargate-cluster-${LAB_NUMBER} --service fargate-service-${LAB_NUMBER} --desired-count=0
+aws ecs update-service --cluster fargate-cluster-${LAB_NUMBER} --service myfargate-service-${LAB_NUMBER} --desired-count=2
+~~~
+
+Feel free to also experiment with the service utilizing the AWS counsel.
+
+Wen we are finished let's cleanup after ourselves.  As we learned Before we can remove our service we first need to shutdown the tasks running for that service.  We can do that by setting our "desired-count" to "0":
+~~~bash
+aws ecs update-service --cluster fargate-cluster-${LAB_NUMBER} --service myfargate-service-${LAB_NUMBER} --desired-count=0
 ~~~
 
 After a few seconds the task should shutdown at which point we can remove the service completely:
 ~~~bash
-aws ecs delete-service --cluster fargate-cluster-${LAB_NUMBER} --service fargate-service-${LAB_NUMBER}
+aws ecs delete-service --cluster fargate-cluster-${LAB_NUMBER} --service myfargate-service-${LAB_NUMBER}
 ~~~
 
 We also can remove our task definition:
