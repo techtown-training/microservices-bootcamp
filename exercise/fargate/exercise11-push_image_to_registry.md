@@ -29,10 +29,10 @@ docker pull nginx:1.17
 
 Now that we have the image local on our Linux instance, we need to "tag" that image as the unique name used in the ECR including the ECR hostname.  It does include stuff like what AWS account it is on and what AWS region the ECR is located in.  We will assign that tag with the "docker tag" context:
 ~~~bash
-docker tag nginx:1.17 ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/nginx:1.17
+docker tag nginx:1.17 ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${LAB_NUMBER}-repo/nginx:1.17
 ~~~
 
 Now that that image is properly tagged we can now push it to the ECR:
 ~~~bash
-docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/nginx:1.17
+docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${LAB_NUMBER}-repo/nginx:1.17
 ~~~

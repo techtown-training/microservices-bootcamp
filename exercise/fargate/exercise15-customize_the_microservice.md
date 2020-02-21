@@ -52,12 +52,12 @@ docker build -t myfargate:latest .
 
 And let's tag that image for ECR:
 ~~~bash
-docker tag myfargate:latest ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/myfargate:latest
+docker tag myfargate:latest ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${LAB_NUMBER}-repo/myfargate:latest
 ~~~
 
 Now that that image is properly tagged we can now push it to the ECR:
 ~~~bash
-docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/myfargate:latest
+docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${LAB_NUMBER}-repo/myfargate:latest
 ~~~
 
 Now lets switch directory to work on our task definitions:
@@ -76,7 +76,7 @@ sed -ie "s/#00LAB00#/${LAB_NUMBER}/g" myfargate-task.json
 
 Let's customize the image to use in the task:
 ~~~bash
-sed -ie "s/#00IMAGE00#/${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com\/myfargate:latest/g" myfargate-task.json
+sed -ie "s/#00IMAGE00#/${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com\/${LAB_NUMBER}-repo\/myfargate:latest/g" myfargate-task.json
 ~~~
 
 
