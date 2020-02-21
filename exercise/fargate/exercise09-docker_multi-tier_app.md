@@ -29,7 +29,7 @@ cd ~/microservices-bootcamp/exercise/fargate/source/09/taiga/
 
 The docker compose file has a few environment variables for the deployment.  One of the environment variables sets the hostname for the "Taiga" install.  Let's change that from "localhost" to the "AWS_EIP" address:
 ~~~bash
-sed -ie "s/localhost/${AWS_EIP}/g" docker-compose.yml
+sed -ie "s/localhost/${AWS_EIP}/g" config.env
 ~~~
 
 Now that we are all set.  Feel free to take a look at the docker-compose.yml file in additon to the Dockerfile to get an idea of what is going to happen.  When you are ready you can start the build / deploy by running "docker-compose up":

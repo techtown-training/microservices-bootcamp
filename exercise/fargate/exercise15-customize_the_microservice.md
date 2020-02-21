@@ -2,35 +2,88 @@
 
 ## This exercise needs finalize it will be finish shortly
 
+In this lab the desire is to build on skills we have used in the previous labs to build our own docker image, push that image to an ECR and finally deploy that image as a task on a Fargate service.
 
-Since we have not created a task definition for your lab instance yet, let's do that now.  For this lab all the source files exist on disk.  First we will switch to that directory:
+I have some examples in this directory but the idea is for you to customize build your own images.
+
+So lets first have a directory to work in:
+
 ~~~bash
-cd ~/microservices-bootcamp/exercise/fargate/source/04/
+mkdir -p ~/myFargate/image
+mkdir ~/myFargate/task
+cd ~/myFargate/image
 ~~~
 
-Next we will start with the example task template file, but we will make a copy of it for our local changes:
+Now in this directory create a Dockerfile for your image.  Here is an example Dockerfile but feel free to make your own:
+~~~yaml
+FROM alpine:3:11
+MAINTAINER Jordan Clark mail@jordanclark.us
+
+ENV S6_OVERLAY_VERSION 1.22.1.0
+ENV S6_OVERLAY_MD5HASH 3060e2fdd92741ce38928150c0c0346a
+
+RUN apk add --no-cache wget ca-certificates && \
+apk --no-cache --update upgrade && \
+cd /tmp && \
+wget https://github.com/just-containers/s6-overlay/releases/download/v$S6_OVERLAY_VERSION/s6-overlay-amd64.tar.gz && \
+echo "$S6_OVERLAY_MD5HASH *s6-overlay-amd64.tar.gz" | md5sum -c - && \
+tar xzf s6-overlay-amd64.tar.gz -C / && \
+rm s6-overlay-amd64.tar.gz
+
+RUN apk add --no-cache nginx && \
+mkdir /run/nginx
+
+ENTRYPOINT ["/init"]
+~~~
+
+Now let's bulid that image:
 ~~~bash
-cp template-fargate-task.json fargate-task.json
+docker build -t myfargate:latest .
+~~~
+
+And let's tag that image for ECR:
+~~~bash
+docker tag myfargate:latest ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/myfargate:latest
+~~~
+
+Now that that image is properly tagged we can now push it to the ECR:
+~~~bash
+docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/myfargate:latest
+~~~
+
+Now lets switch directory to work on our task definitions:
+~~~bash
+cd ~/myFargate/task
+~~~
+
+~~~bash
+cp ~/microservices-bootcamp/exercise/fargate/source/15/template-fargate-task.json myfargate-task.json
 ~~~
 
 Let's make some local modifications to our task definitions to include our unique lab ID.  We will edit the task definition file in place using 'sed':
 ~~~bash
-sed -ie "s/#00LAB00#/${LAB_NUMBER}/g" fargate-task.json
+sed -ie "s/#00LAB00#/${LAB_NUMBER}/g" myfargate-task.json
 ~~~
 
-Now take a look at the "fargate-task.json" file to get an understanding of what is being defined within this specific task.  When you are ready let's register the task definition with AWS:
+Let's customize the image to use in the task:
 ~~~bash
-aws ecs register-task-definition --cli-input-json file://$HOME/microservices-bootcamp/exercise/fargate/source/04/fargate-task.json
+sed -ie "s/#00IMAGE00#/${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com\/myfargate:latest/g" myfargate-task.json
 ~~~
 
-Now let's again checkout the registered task definitions on our AWS account.  We should have one that correlates to our lab instance ID:
+
+Take a look at your "myfargate-task.json" file if there are changes feel free to adjust as desired.  When you are ready let's register the task definition with AWS:
+~~~bash
+aws ecs register-task-definition --cli-input-json file://$HOME/myFargate/task/myfargate-task.json
+~~~
+
+You should see the registered task definitions on our AWS account:
 ~~~bash
 aws ecs list-task-definitions
 ~~~
 
 We need to store the task definition ID for our registered task into an environment variable to use later:
 ~~~bash
-export TASK_DEFINITION=`aws ecs list-task-definitions --output text | grep fargate-${LAB_NUMBER} | head -n1 | cut -d/ -f2`
+export MYTASK_DEFINITION=`aws ecs list-task-definitions --output text | grep fargate-${LAB_NUMBER} | head -n1 | cut -d/ -f2`
 ~~~
 
 Now that we have the task definition defined let's create the service that runs that task within Fargate on our own fargate cluster:
