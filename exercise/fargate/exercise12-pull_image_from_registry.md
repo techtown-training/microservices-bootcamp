@@ -12,7 +12,7 @@ docker image rm nginx:1.17
 
 Now let's pull and run an image based on the image we pushed to the ECR:
 ~~~bash
-docker run -d --name FromECR ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${LAB_NUMBER}-repo/nginx:1.17
+docker run -d --name FromECR -p 80:80 ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${LAB_NUMBER}-repo/nginx:1.17
 ~~~
 
 We should now see the container running with the name "FromECR":
@@ -20,7 +20,17 @@ We should now see the container running with the name "FromECR":
 docker container ls
 ~~~
 
-Let's stop the container
+Let's verify that we connect to the service from the Linux host:
+~~~bash
+curl http://localhost
+~~~
+
+Optionally we can see also prove that it works from a local browser by connecting to http://AWS_EIP/
+~~~echo
+echo ${AWS_EIP}
+~~~
+
+Let's stop the container:
 ~~~bash
 docker stop FromECR
 ~~~
