@@ -8,6 +8,7 @@ Kubernetes 101 workshop - introduction to Kubernetes and basic concepts
 Everyone says that kubernetes is hard, however this proves otherwise!
 Let's create nginx service.  We will do this from a yaml file.  Create a file called `my-nginx.yaml` that has this content.
 
+###### my-nginx.yaml
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -37,7 +38,7 @@ spec:
 New with that file we can create our deployment with the "record" option to have Kubernetes save the different states of the deployment overtime as changes are made.  We also will create new service that exposes the deployment.
 
 ```shell
-kubectl apply -f my-nginx.yaml --record
+kubectl create -f my-nginx.yaml --record --save-config
 kubectl expose deployment my-nginx --port=80 --type=NodePort
 ```
 
@@ -345,6 +346,7 @@ The power of Deployments comes from ability to do smart upgrades and rollbacks i
 
 Let's update our deployment of nginx to the newer version.  By creating a new yaml file with a different nginx version called `my-nginx-new.yaml` with this content:
 
+###### my-nginx-new.yaml
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -374,7 +376,7 @@ spec:
 Let's apply our deployment:
 
 ```shell
-kubectl apply -f my-nginx-new.yaml
+kubectl apply -f my-nginx-new.yaml --record
 ```
 
 
@@ -433,12 +435,9 @@ curl -v http://my-nginx
 < Server: nginx/1.9.1
 ```
 
-Let's simulate a situation when a deployment fails and we need to rollback. Our deployment has a typo
+Let's simulate a situation when a deployment fails and we need to rollback. Our deployment has a typo with a new file `my-nginx-typo.yaml`
 
-```shell
-cat my-nginx-typo.yaml
-```
-
+###### my-nginx-typo.yaml
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -468,7 +467,7 @@ spec:
 Let's apply a bad configuration:
 
 ```shell
-kubectl apply -f my-nginx-typo.yaml
+kubectl apply -f my-nginx-typo.yaml --record
 deployment "my-nginx" configured
 ```
 
