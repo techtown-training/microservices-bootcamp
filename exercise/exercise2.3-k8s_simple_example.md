@@ -8,7 +8,7 @@ Kubernetes 101 workshop - introduction to Kubernetes and basic concepts
 Everyone says that kubernetes is hard, however this proves otherwise!
 Let's create nginx service.
 
-```
+```bash
 kubectl create deployment my-nginx --image=nginx
 kubectl scale deployment my-nginx --replicas=3
 kubectl expose deployment my-nginx --port=80 --type=NodePort
@@ -20,7 +20,7 @@ Let's go step by step and explore what just happened:
 of the infrastructure. In essence this is a group of containers sharing the same networking and host
 linux namespaces. They are used to group related processes together. Our `run` command resulted in several running pods:
 
-```
+```bash
 kubectl get pods
 
 NAME                        READY     STATUS    RESTARTS   AGE
@@ -30,7 +30,7 @@ my-nginx-3800858182-jzoxe   1/1       Running   0          32m
 
 You can explore individual pods or group of pods using handy `kubectl describe`
 
-```
+```bosh
 kubectl describe pods
 
 Name:		my-nginx-3800858182-auusv
@@ -80,7 +80,7 @@ You can spot IP in the overlay network assigned to pod. In my case it's `10.244.
 
 Let's try and see!
 
-```
+```bash
 kubectl run -i -t --rm cli --image=tutum/curl --restart=Never
 curl http://10.244.33.109
 <!DOCTYPE html>
@@ -103,28 +103,28 @@ Our container exposes Port 80. Thanks to overlay network every container can exp
 
 We can enter pod container using handy `kubectl exec` command:
 
-```
-kubectl exec -ti my-nginx-3800858182-auusv -c my-nginx -- /bin/bash
+```bash
+kubectl exec -ti my-nginx-3800858182-auusv -c nginx -- /bin/bash
 ```
 
 Our `kubectl exec` command specified pod id and container name within the pod. `-ti` stands for attach PTY and connect input to the container respectively.
 
 If there's just one container, we can omit the container name within the pod:
 
-```
-kubectl exec -ti my-nginx-3800858182-auusv /bin/bash
+```bash
+kubectl exec -ti my-nginx-3800858182-auusv --c /bin/bash
 ```
 
 Let's explore our nginx container a bit:
 
-```
+```bash
 $ ls -l /proc/1/exe
 lrwxrwxrwx. 1 root root 0 Mar 14 22:57 /proc/1/exe -> /usr/sbin/nginx
 ```
 
 as you see, our container has it's own separate PID namespace - nginx process is actually `PID 1`.
 
-```
+```bash
 ls -l /var/run/secrets/kubernetes.io/serviceaccount/
 ```
 
@@ -134,7 +134,7 @@ a bit later.
 
 We don't need to always run interactive sessions within container, e.g. we can execute commmand without attaching PTY:
 
-```
+```bash
 kubectl exec my-nginx-3800858182-auusv -- /bin/ls -l
 total 0
 drwxr-xr-x.   1 root root 1190 May  3 18:53 bin
@@ -166,13 +166,13 @@ send everything after `--` as is.
 So k8s created 2 Pods for us and that's it? Not really, it's a bit more advanced system and it really thought through the deployment lifecycle.
 K8s created a deployment with replicaset of 2 pods:
 
-```
+```bash
 kubectl get deployments
 NAME       DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 my-nginx   2         2         2            2           1h
 ```
 
-```
+```bash
 kubectl get replicasets
 NAME                  DESIRED   CURRENT   AGE
 my-nginx-3800858182   2         2         1h
@@ -189,7 +189,7 @@ Let's dig a little deeper into this deployment:
 
 Here we see that it manages 2 replicas of our Pod and using RollingUpdate strategy:
 
-```
+```bash
 kubectl describe deployments/my-nginx
 Name:			my-nginx
 Namespace:		default
@@ -219,7 +219,7 @@ Pods, Replicasets and Deployments and all done with one command! But that's not 
 
 Services provide special Virtual IPs load balancing traffic to the set of pods in a replica sets.
 
-```
+```bash
 kubectl get services
 kubernetes   10.100.0.1     <none>        443/TCP   2h
 my-nginx     10.100.68.75   <none>        80/TCP    1h
@@ -229,7 +229,7 @@ As you see there are two services - one is a system service `kubernetes` that po
 
 Let's dig a little deeper into services:
 
-```
+```bash
 kubectl describe services/my-nginx
 Name:			my-nginx
 Namespace:		default
@@ -262,7 +262,7 @@ IP:			10.100.68.75
 This is our VIP that never changes and provides a static piece of configuration making it easier for our components in the system to talk to each other.
 
 
-```
+```bash
 kubectl run -i -t --rm cli --image=tutum/curl --restart=Never
 curl http://10.100.68.75
 <!DOCTYPE html>
@@ -286,7 +286,7 @@ working. Further configuration is required.</p>
 It works! Wait, so you need to hardcode this VIP in your configuration? What if it changes from environment to environment?
 Thankfully, k8s team thought about this as well, and we can simply do:
 
-```
+```bash
 kubectl run -i -t --rm cli --image=tutum/curl --restart=Never
 curl http://my-nginx
 <!DOCTYPE html>
@@ -301,7 +301,7 @@ That's very similar how K8s manages discovery in containers as well. Let's login
 discover `/etc/resolv.conf` there:
 
 
-```
+```bash
 kubectl exec -ti my-nginx-3800858182-auusv -- /bin/bash
 root@my-nginx-3800858182-auusv:/# cat /etc/resolv.conf
 
@@ -318,12 +318,12 @@ The power of Deployments comes from ability to do smart upgrades and rollbacks i
 
 Let's update our deployment of nginx to the newer version.
 
-```
+```bash
 cat my-nginx-new.yaml
 ```
 
 ```yaml
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
@@ -350,14 +350,14 @@ spec:
 
 Let's apply our deployment:
 
-```
+```bash
 kubectl apply -f my-nginx-new.yaml
 ```
 
 
 We can see that a new replicaset has been created
 
-```
+```bash
 kubectl get rs
 
 NAME                  DESIRED   CURRENT   AGE
@@ -369,7 +369,7 @@ If we look at the events section of the deployment we will see how it performed 
 scaling up new replicaset and scaling down old replicaset:
 
 
-```
+```bash
 kubectl describe deployments/my-nginx
 Name:			my-nginx
 Namespace:		default
@@ -394,7 +394,7 @@ Events:
 
 And now it's `1.11.5`, let's check out in the headers:
 
-```
+```bash
 kubectl run -i -t --rm cli --image=tutum/curl --restart=Never
 curl -v http://my-nginx
 
@@ -412,12 +412,12 @@ curl -v http://my-nginx
 
 Let's simulate a situation when a deployment fails and we need to rollback. Our deployment has a typo
 
-```
+```bash
 cat my-nginx-typo.yaml
 ```
 
-```
-apiVersion: extensions/v1beta1
+```yaml
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
@@ -444,14 +444,14 @@ spec:
 
 Let's apply a bad configuration:
 
-```shell
+```bash
 kubectl apply -f my-nginx-typo.yaml
 deployment "my-nginx" configured
 ```
 
 Our new pods have crashed:
 
-```
+```bash
 kubectl get pods
 NAME                        READY     STATUS             RESTARTS   AGE
 my-nginx-1413250935-rqstg   1/1       Running            0          10m
@@ -461,7 +461,7 @@ my-nginx-2896527177-cv3fd   0/1       ImagePullBackOff   0          55s
 
 Our deployment shows 2 unavailable replicas:
 
-```
+```bash
 kubectl describe deployments/my-nginx
 Name:			my-nginx
 Namespace:		default
@@ -489,7 +489,7 @@ Events:
 
 Our rollout has stopped. Let's view the history:
 
-```
+```bash
 kubectl rollout history deployments/my-nginx
 deployments "my-nginx":
 REVISION	CHANGE-CAUSE
@@ -502,13 +502,13 @@ REVISION	CHANGE-CAUSE
 
 Let's roll back the last deployment:
 
-```
+```bash
 kubectl rollout undo deployment/my-nginx
 ```
 
 We've created a new revision by doing `undo`:
 
-```
+```bash
 kubectl rollout history deployment/my-nginx
 deployments "my-nginx":
 REVISION	CHANGE-CAUSE
@@ -528,7 +528,7 @@ Well, our `nginx`es are up and running, let's make sure they actually do somethi
 
 Lets create configmap from a directory. Our `conf.d` contains a `default.conf` file:
 
-```
+```bash
 cat conf.d/default.conf
 server {
     listen       80;
@@ -542,12 +542,12 @@ server {
 
 We can convert the whole directory into configmap:
 
-```
+```bash
 kubectl create configmap my-nginx-v1 --from-file=conf.d
 configmap "my-nginx-v1" created
 ```
 
-```
+```bash
 kubectl describe configmaps/my-nginx-v1
 Name:		my-nginx-v1
 Namespace:	default
@@ -564,11 +564,12 @@ Every file is now it's own property, e.g. `default.conf`. Now, the trick is to m
 of our nginxes. We will use new deployment for this purpose:
 
 
-```
+```bash
 cat my-nginx-configmap.yaml
 ```
 
-```
+```yaml
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
@@ -607,13 +608,13 @@ Another part of our config is `volumeMounts` that are specified for each contain
 
 Let's apply our config map:
 
-```
+```bash
 kubectl apply -f my-nginx-configmap.yaml
 ```
 
 Just as usual, new pods have been created:
 
-```
+```bash
 kubectl get pods
 NAME                        READY     STATUS    RESTARTS   AGE
 my-nginx-3885498220-0c6h0   1/1       Running   0          39s
@@ -622,8 +623,8 @@ my-nginx-3885498220-9q61s   1/1       Running   0          38s
 
 Out of curiosity, let's login into one of them and see ourselves the mounted configmap:
 
-```
-kubectl exec -ti my-nginx-3885498220-0c6h0 /bin/bash
+```bash
+kubectl exec -ti my-nginx-3885498220-0c6h0 -- /bin/bash
 cat /etc/nginx/conf.d/default.conf
 server {
     listen       80;
@@ -637,7 +638,7 @@ server {
 
 and finally, let's see it all in action:
 
-```
+```bash
 kubectl run -i -t --rm cli --image=tutum/curl --restart=Never
 curl http://my-nginx
 hello, Kubernetes!
@@ -653,7 +654,7 @@ Mattermost stack is composed of a worker process that connects to a running post
 
 Let's build container image for our worker and push it to our local private registry:
 
-```
+```bash
 cd mattermost/worker
 docker build -t mattermost-worker:2.1.0 .
 ```
@@ -666,7 +667,7 @@ Mattermost's worker expects configuration to be mounted at:
 
 `/var/mattermost/config/config.json`
 
-```
+```bash
 cat mattermost/worker-config/config.json
 ```
 
@@ -684,7 +685,7 @@ there's a `postres` service pointing to our Postgres DB running somewhere in the
 
 Let us create config map based on this file:
 
-```
+```bash
 kubectl create configmap mattermost-v1 --from-file=mattermost/worker-config
 kubectl describe configmaps/mattermost-v1
 Name:		mattermost-v1
@@ -701,7 +702,7 @@ config.json:	2951 bytes
 
 Let's create a single Pod running posgres and point our service to it:
 
-```
+```bash
 kubectl create -f mattermost/postgres.yaml
 kubectl get pods
 NAME                        READY     STATUS    RESTARTS   AGE
@@ -710,7 +711,7 @@ mattermost-database         1/1       Running   0          12m
 
 Let's check out the logs of our postgres:
 
-```
+```bash
 kubectl logs mattermost-database
 The files belonging to this database system will be owned by user "postgres".
 This user must also own the server process.
@@ -735,13 +736,13 @@ for the stateful service, what is slightly more complicated than this sample.
 
 Let's create postrges service:
 
-```
+```bash
 kubectl create -f mattermost/postgres-service.yaml
 ```
 
 Let's check out that everything is allright:
 
-```
+```bash
 kubectl describe svc/postgres
 Name:			postgres
 Namespace:		default
@@ -760,12 +761,12 @@ Seems like IP has been allocated and endpoints have been found.
 **Creating Mattermost worker deployment**
 
 
-```
+```bash
 cat mattermost/worker.yaml
 ```
 
 ```yaml
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
@@ -799,13 +800,13 @@ spec:
            name: mattermost-v1
 ```
 
-```
+```bash
 kubectl create -f mattermost/worker.yaml --record
 ```
 
 Let's check out the status of the deployment to see if everything is allright:
 
-```
+```bash
 kubectl describe deployments/mattermost-worker
 Name:			mattermost-worker
 Namespace:		default
@@ -830,7 +831,7 @@ Events:
 
 Our last touch is to create mattermost service and check how it all works together:
 
-```
+```bash
 kubectl create -f mattermost/worker-service.yaml
 You have exposed your service on an external port on all nodes in your
 cluster.  If you want to expose this service to the external internet, you may
@@ -842,7 +843,7 @@ service "mattermost" created
 
 Let's inspect the service spec:
 
-```
+```bash
 cat mattermost/worker-service.yaml
 ```
 
@@ -871,7 +872,7 @@ is `32321`. This is handy sometimes when you are working on-prem or locally.
 
 **Accessing the installation**
 
-```
+```bash
 kubectl run -i -t --rm cli --image=tutum/curl --restart=Never
 curl http://mattermost
 
@@ -889,7 +890,7 @@ curl http://mattermost
 Okay, okay, we need to actually access the website now. Well, that' when `NodePort` comes in handy.
 Let's view it a bit closer:
 
-```
+```bash
 kubectl describe svc/mattermost
 Name:			mattermost
 Namespace:		default
@@ -905,7 +906,7 @@ Session Affinity:	None
 
 Notice this:
 
-```
+```bash
 NodePort:		http	32321/TCP
 ```
 
