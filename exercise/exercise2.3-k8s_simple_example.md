@@ -10,7 +10,7 @@ Let's create nginx service.
 
 ```
 kubectl run my-nginx --image=nginx --replicas=2 --port=80 --record
-kubectl expose deployment my-nginx --type=LoadBalancer --port=80
+kubectl expose deployment my-nginx --type=NodePort --port=80
 ```
 
 Let's go step by step and explore what just happened:
@@ -117,7 +117,7 @@ kubectl exec -ti my-nginx-3800858182-auusv /bin/bash
 Let's explore our nginx container a bit:
 
 ```
-$ ls -l /proc/1/exe 
+$ ls -l /proc/1/exe
 lrwxrwxrwx. 1 root root 0 Mar 14 22:57 /proc/1/exe -> /usr/sbin/nginx
 ```
 
@@ -754,7 +754,7 @@ Endpoints:		10.244.40.229:5432
 Session Affinity:	None
 ```
 
-Seems like IP has been allocated and endpoints have been found. 
+Seems like IP has been allocated and endpoints have been found.
 
 **Creating Mattermost worker deployment**
 

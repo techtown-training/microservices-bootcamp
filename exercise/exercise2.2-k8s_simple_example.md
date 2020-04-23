@@ -44,7 +44,7 @@ On some platforms (for example Google Compute Engine) the kubectl command can in
 to do this run:
 
 ```bash
-kubectl expose deployment my-nginx --port=80 --type=LoadBalancer
+kubectl expose deployment my-nginx --port=80 --type=NodePort
 ```
 
 This should print the service that has been created, and map an external IP address to the service. Where to find this external IP address will depend on the environment you run in.  For instance, for Google Compute Engine the external IP address is listed as part of the newly created service and can be retrieved by running
