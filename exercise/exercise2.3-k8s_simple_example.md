@@ -6,11 +6,38 @@ Kubernetes 101 workshop - introduction to Kubernetes and basic concepts
 ## Part 1 Running nginx
 
 Everyone says that kubernetes is hard, however this proves otherwise!
-Let's create nginx service.
+Let's create nginx service.  We will do this from a yaml file.  Create a file called `my-nginx.yaml` that has this content.
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    run: my-nginx
+  name: my-nginx
+  namespace: default
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      run: my-nginx
+  template:
+    metadata:
+      labels:
+        run: my-nginx
+    spec:
+      containers:
+      - image: nginx:1.11.0
+        name: my-nginx
+        ports:
+        - containerPort: 80
+          protocol: TCP
+```
+
+New with that file we can create our deployment with the "record" option to have Kubernetes save the different states of the deployment overtime as changes are made.  We also will create new service that exposes the deployment.
 
 ```shell
-kubectl create deployment my-nginx --image=nginx
-kubectl scale deployment my-nginx --replicas=3
+kubectl apply -f my-nginx.yaml --record
 kubectl expose deployment my-nginx --port=80 --type=NodePort
 ```
 
@@ -316,11 +343,7 @@ As you see, `resolv.conf` is set up to point to the DNS resolution service manag
 
 The power of Deployments comes from ability to do smart upgrades and rollbacks in case if something goes wrong.
 
-Let's update our deployment of nginx to the newer version.
-
-```shell
-cat my-nginx-new.yaml
-```
+Let's update our deployment of nginx to the newer version.  By creating a new yaml file with a different nginx version called `my-nginx-new.yaml` with this content:
 
 ```yaml
 apiVersion: apps/v1
