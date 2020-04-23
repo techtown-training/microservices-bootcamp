@@ -104,7 +104,7 @@ Our container exposes Port 80. Thanks to overlay network every container can exp
 We can enter pod container using handy `kubectl exec` command:
 
 ```bash
-kubectl exec -ti my-nginx-3800858182-auusv -c my-nginx -- /bin/bash
+kubectl exec -ti my-nginx-3800858182-auusv -c nginx -- /bin/bash
 ```
 
 Our `kubectl exec` command specified pod id and container name within the pod. `-ti` stands for attach PTY and connect input to the container respectively.
