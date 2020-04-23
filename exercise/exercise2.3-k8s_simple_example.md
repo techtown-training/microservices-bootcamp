@@ -9,8 +9,9 @@ Everyone says that kubernetes is hard, however this proves otherwise!
 Let's create nginx service.
 
 ```
-kubectl run my-nginx --image=nginx --replicas=2 --port=80 --record
-kubectl expose deployment my-nginx --type=NodePort --port=80
+kubectl create deployment my-nginx --image=nginx
+kubectl scale deployment my-nginx --replicas=3
+kubectl expose deployment my-nginx --port=80 --type=NodePort
 ```
 
 Let's go step by step and explore what just happened:
