@@ -9,7 +9,7 @@ $ kubectl delete pod <pod_name>
 ```
 ## Create a deployment
 ```
-$ kubectl create -f https://raw.githubusercontent.com/abhikbanerjee/Kubernetes_Exercise_Files/master/helper_yaml_files/Ex_combine_deploy_service/helloworld-all.yml 
+$ kubectl create -f https://raw.githubusercontent.com/techtown-training/microservices-bootcamp/master/exercise/src_code/kubernetes_additional_exercise/ex4/helloworld-all.yaml
 ```
 
 Check the deployments and pods
@@ -17,29 +17,21 @@ Check the deployments and pods
 $ kubectl get po,deploy,svc -o wide
 ```
 
-## Scale on an existing deployment 
+## Scale on an existing deployment
 
-Scale the deployment created in last step and see the effect on the number of pods, rs, and deployment 
+Scale the deployment created in last step and see the effect on the number of pods, rs, and deployment
 ```
 $ kubectl scale deploy helloworld-all-deployment --replicas=4
 Check the scaling in "describe", at the bottom in the "Events" section, you will see that it's scaled from 1 to 4
 $ kubectl describe deploy helloworld-all-deployment
 ```
 
-## Use Auto-Scaling on an existing deployment 
+## Use Auto-Scaling on an existing deployment
 
-### Create a nginx deployment
-```
-$ kubectl run nginx-deployment --image nginx --port 80
-```
-Scale the deployment to 5 pods
-```
-$ kubectl scale deploy/nginx-deployment --replicas=5
-```
-Add autoscale to an existing deployment nginx
+Add autoscale to an existing deployment helloworld-all-deployment
 
 ```
-$ kubectl autoscale deployment nginx-deployment --min=2 --max=10
+$ kubectl autoscale deployment helloworld-all-deployment --min=2 --max=10
 ```
 check the HPA
 ```
@@ -48,7 +40,7 @@ $ kubectl get hpa
 
 ## Functionality of Roll outs and Roll Backs
 
-We will use the yaml files located in this section 
+We will use the yaml files located in this section
 https://github.com/shekhar2010us/kubernetes_teach_git/blob/master/ex4/navbar-black.yaml
 
 Create the deployment and service for the navbar
@@ -57,7 +49,7 @@ $ kubectl create -f navbar-black.yaml
 ```
 
 ```
-$ kubectl get po,deploy,svc --show-labels -o wide 
+$ kubectl get po,deploy,svc --show-labels -o wide
 ```
 get the port for the LoadBalancer and check the URL for the node with the port
 
@@ -101,5 +93,3 @@ Let's clean up
 kubectl delete --all svc,deploy,pod,hpa --namespace=default
 ```
 Ref:- https://www.linkedin.com/learning/learning-kubernetes/next-steps
-
-
