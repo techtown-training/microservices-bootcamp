@@ -4,6 +4,9 @@ metadata:
   name: soaktest
 spec:
   replicas: 5
+  selector:
+    matchLabels:
+      app: soaktest
   template:
     metadata:
       labels:
