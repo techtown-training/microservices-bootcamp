@@ -37,7 +37,7 @@ kubectl create -f https://raw.githubusercontent.com/kelseyhightower/secrets/mast
 View the logs of the `secrets` job:
 
 ```
-kubectl get pods -a
+kubectl get pods
 ```
 
 ```
