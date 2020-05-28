@@ -5,7 +5,7 @@
 
 ### cd to the source code directory - {exercise/src_code/kubernetes_additional_exercise/ex2.6/}
 
-Create a deployment nginx
+Create a deployment (pod on new K8s versions) nginx
 
 ```
 kubectl run nginx-deployment --image nginx --port 80
@@ -17,10 +17,10 @@ Check the currently running pods, deployments, services and replica sets
 kubectl get po,deploy,svc,rs -o wide
 ```
 
-Expose the Deployment as a Service of NodePort
+Expose the Pod as a Service of NodePort
 
 ```
-kubectl expose deploy/nginx-deployment --type=NodePort --name nginx-service
+kubectl expose pod/nginx-deployment --type=NodePort --name nginx-service
 ```
 
 Check the currently running pods, deployments, services and replica sets
