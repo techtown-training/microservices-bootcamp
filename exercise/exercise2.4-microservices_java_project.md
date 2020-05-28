@@ -5,11 +5,11 @@
 ### Step 1: Update apt-get and install necessary packages
 Update the apt-get package manager and install necessary packages in the machine
 <br>
-`sudo apt-get update && apt-get install -y maven git tree default-jdk`
+`sudo apt-get update && sudo apt-get install -y maven git tree default-jdk`
 <br>
 
 ### Step 2: Clone the git project
-Clone the existing git project
+Clone the existing git project (this may not be needed as it was done in the first exercise)
 <br>
 `git clone https://github.com/techtown-training/microservices-bootcamp.git`
 <br>
