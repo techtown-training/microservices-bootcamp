@@ -1,0 +1,14 @@
+{
+    "cluster": "ecs-workshop-cluster-#00LAB00#",
+    "serviceName": "user-profile-service",
+    "taskDefinition": "ecs-workshop-user-profile-service-#00LAB00#",
+    "desiredCount": 1,
+    "launchType": "EC2",
+    "loadBalancers": [
+        {
+            "targetGroupArn": "<UserProfileServiceALBTargetGroupArn>",
+            "containerName": "user-profile-service-container",
+            "containerPort": 3000
+        }
+    ]
+}

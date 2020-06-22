@@ -1,0 +1,14 @@
+{
+    "cluster": "ecs-workshop-cluster-#00LAB00#",
+    "serviceName": "contacts-service",
+    "taskDefinition": "ecs-workshop-contacts-service-#00LAB00#",
+    "desiredCount": 1,
+    "launchType": "EC2",
+    "loadBalancers": [
+        {
+            "targetGroupArn": "<ContactsServiceALBTargetGroupArn>",
+            "containerName": "contacts-service-container",
+            "containerPort": 3000
+        }
+    ]
+}

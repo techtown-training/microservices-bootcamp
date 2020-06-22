@@ -1,0 +1,117 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "ViewOwnUserInfo",
+      "Effect": "Allow",
+      "Action": [
+        "iam:GetUserPolicy",
+        "iam:ListGroupsForUser",
+        "iam:ListAttachedUserPolicies",
+        "iam:ListUserPolicies",
+        "iam:GetUser"
+      ],
+      "Resource": [
+        "arn:aws:iam::*:user/${aws:username}"
+      ]
+    },
+    {
+      "Sid": "NavigateInConsole",
+      "Effect": "Allow",
+      "Action": [
+        "iam:GetGroupPolicy",
+        "iam:GetPolicyVersion",
+        "iam:GetPolicy",
+        "iam:ListAttachedGroupPolicies",
+        "iam:ListGroupPolicies",
+        "iam:ListPolicyVersions",
+        "iam:ListPolicies",
+        "iam:ListUsers"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "FargateLabAccess",
+      "Effect": "Allow",
+      "Action": [
+        "application-autoscaling:Describe*",
+        "application-autoscaling:PutScalingPolicy",
+        "application-autoscaling:DeleteScalingPolicy",
+        "application-autoscaling:RegisterScalableTarget",
+        "cloudwatch:DescribeAlarms",
+        "cloudwatch:GetMetricStatistics",
+        "cloudwatch:PutMetricAlarm",
+        "ec2:Describe*",
+        "ecr:GetAuthorizationToken",
+        "ecr:BatchCheckLayerAvailability",
+        "ecr:GetDownloadUrlForLayer",
+        "ecr:GetRepositoryPolicy",
+        "ecr:DescribeRepositories",
+        "ecr:ListImages",
+        "ecr:DescribeImages",
+        "ecr:BatchGetImage",
+        "ecr:CreateRepository",
+        "ecr:DeleteRepository",
+        "ecr:GetLifecyclePolicy",
+        "ecr:GetLifecyclePolicyPreview",
+        "ecr:ListTagsForResource",
+        "ecr:DescribeImageScanFindings",
+        "ecr:InitiateLayerUpload",
+        "ecr:UploadLayerPart",
+        "ecr:CompleteLayerUpload",
+        "ecr:PutImage",
+        "elasticloadbalancing:Describe*"
+      ],
+      "Resource": "*",
+      "Condition": {
+        "StringEquals": {
+          "ec2:Region": "us-west-2"
+        }
+      }
+    },
+    {
+      "Sid": "FargateLabAccessALL",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:Describe*",
+        "ecs:CreateCluster",
+        "ecs:CreateService",
+        "ecs:DeleteCluster",
+        "ecs:DeleteService",
+        "ecs:Describe*",
+        "ecs:DeregisterTaskDefinition",
+        "ecs:List*",
+        "ecs:RegisterTaskDefinition",
+        "ecs:UpdateService",
+        "iam:GetPolicy",
+        "iam:GetPolicyVersion",
+        "iam:GetRole",
+        "iam:ListAttachedRolePolicies",
+        "iam:ListRoles",
+        "iam:ListGroups",
+        "iam:ListUsers",
+        "iam:PassRole",
+        "ssm:DescribeInstanceInformation",
+        "ssm:GetConnectionStatus"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "FargateSessionManagerAccess",
+      "Effect": "Allow",
+      "Action": [
+        "ssm:StartSession"
+      ],
+      "Resource": [
+        "arn:aws:ec2:us-west-2:090453859647:instance/*",
+        "arn:aws:ssm:us-west-2:090453859647:document/SSM-SessionManagerRunShell",
+        "arn:aws:ssm:us-west-2:090453859647:*"
+      ],
+      "Condition": {
+        "StringEquals": {
+          "aws:ResourceTag/Session": "64600GKN8"
+        }
+      }
+    }
+  ]
+}

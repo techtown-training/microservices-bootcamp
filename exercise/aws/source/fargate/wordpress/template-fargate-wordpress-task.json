@@ -1,0 +1,71 @@
+{
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "containerDefinitions": [
+        {
+            "name": "mysql",
+            "image": "mysql:5.7",
+            "essential": true,
+            "portMappings": [
+                {
+                    "containerPort": 3306,
+                    "protocol": "tcp"
+                }
+            ],
+            "environment": [
+                {
+                    "name": "MYSQL_DATABASE",
+                    "value": "exampledb"
+                },
+                {
+                    "name": "MYSQL_USER",
+                    "value": "exampleuser"
+                },
+                {
+                    "name": "MYSQL_PASSWORD",
+                    "value": "examplepass"
+                },
+                {
+                    "name": "MYSQL_RANDOM_ROOT_PASSWORD",
+                    "value": "1"
+                }
+            ]
+        },
+        {
+            "name": "wordpress",
+            "image": "wordpress:5.4-apache",
+            "essential": true,
+            "portMappings": [
+                {
+                    "containerPort": 80,
+                    "hostPort": 80,
+                    "protocol": "tcp"
+                }
+            ],
+            "environment": [
+                {
+                    "name": "WORDPRESS_DB_HOST",
+                    "value": "127.0.0.1"
+                },
+                {
+                    "name": "WORDPRESS_DB_USER",
+                    "value": "exampleuser"
+                },
+                {
+                    "name": "WORDPRESS_DB_PASSWORD",
+                    "value": "examplepass"
+                },
+                {
+                    "name": "WORDPRESS_DB_NAME",
+                    "value": "exampledb"
+                }
+            ]
+        }
+    ],
+    "networkMode": "awsvpc",
+    "memory": "512",
+    "cpu": "256",
+    "executionRoleArn": "arn:aws:iam::#00AWSACCOUNTID00#:role/ecsTaskExecutionRole",
+    "family": "fargate-wordpress-#00LAB00#"
+}

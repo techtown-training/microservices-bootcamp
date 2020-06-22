@@ -1,0 +1,7 @@
+*
+!conf
+!scripts
+!taiga-back
+!taiga-front-dist
+!docker-entrypoint.sh
+!docker-settings.py
