@@ -1,0 +1,24 @@
+{
+    "family": "myfargate-#00LAB00#",
+    "networkMode": "awsvpc",
+    "containerDefinitions": [
+        {
+            "name": "myfargate-app-#00LAB00#",
+            "image": "#00IMAGE00#",
+            "portMappings": [
+                {
+                    "containerPort": 80,
+                    "hostPort": 80,
+                    "protocol": "tcp"
+                }
+            ],
+            "essential": true
+        }
+    ],
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "cpu": "256",
+    "memory": "512",
+    "executionRoleArn": "arn:aws:iam::#00AWSID00#:role/ecsTaskExecutionRole"
+}

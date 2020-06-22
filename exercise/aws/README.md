@@ -33,13 +33,13 @@ Labs
 
 [Exercise 14: Fargate running Containers](fargate/runningContainers.md)
 
-[Exercise 15: Fargate scaleing the Application](fargate/scalingTheApp.md)
+[Exercise 15: Fargate scaling the Application](fargate/scalingTheApp.md)
 
-# [Exercise 16: Fargate Stateless Web Application](fargate/statelessWebApp.md)
+*** [Exercise 16: Fargate Stateless Web Application](fargate/statelessWebApp.md)
 
-# [Exercise 17: Fargate Multi-Tier Application](fargate/multiTierApp.md)
+*** [Exercise 17: Fargate Multi-Tier Application](fargate/multiTierApp.md)
 
-# [Exercise 18: Wordpress on Fargate](fargate/wordpressOnFargate.md)
+*** [Exercise 18: Wordpress on Fargate](fargate/wordpressOnFargate.md)
 
 [Exercise 19: Microservice deploy Thumbnail Service](fargate/microserviceDeployThumbnailService.md)
 
@@ -51,8 +51,8 @@ Labs
 
 [Exercise 23: Microservice deploy Auto Scale Service](fargate/microserviceAutoScaleUserInterfaceService.md)
 
-#### [Exercise 24: Microservice deploy Code Pipeline](fargate/microserviceCodePipeline.md)
+*** [Exercise 24: Microservice deploy Code Pipeline](fargate/microserviceCodePipeline.md)
 
-#### [Exercise 25: Microservice deploy Clean Up Service](fargate/microserviceCleanUp.md)
+*** [Exercise 25: Microservice deploy Clean Up Service](fargate/microserviceCleanUp.md)
 
 ## [Exercise 26: Deploy Custom Service](fargate/deployCustomService.md)
