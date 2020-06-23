@@ -1,7 +1,0 @@
-server {
-    # Taiga
-    include snippets/taiga.conf;
-
-    # Events
-    include snippets/events.conf;
-}

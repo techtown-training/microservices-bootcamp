@@ -7,6 +7,38 @@
 
 ### Parts
 
+
+
+
+## Setup Taiga sources
+
+We need to download some upstream git repos for this exercise.  Let's first change to the correct working directory:
+
+~~~shell
+cd ~/microservices-bootcamp/exercise/aws/source/fargate/multiTier/
+~~~
+
+Clone the `docker-taiga` git repo:
+
+~~~shell
+git clone https://github.com/thejordanclark/docker-taiga.git taiga
+~~~
+
+Change to the newly created directory:
+
+~~~shell
+cd taiga
+~~~
+
+Clone the "stable" `taiga-back` and `taiga-front-dist` repos as submodules:
+
+~~~shell
+git clone -b stable https://github.com/taigaio/taiga-back.git taiga-back
+git clone -b stable https://github.com/taigaio/taiga-front-dist.git taiga-front-dist
+~~~
+
+## Install Taiga
+
 ~~~shell
 cd ~/microservices-bootcamp/exercise/aws/source/fargate/multiTier/taiga/
 ~~~
