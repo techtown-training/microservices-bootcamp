@@ -3,7 +3,7 @@
 
 ### Objective
 
-
+Deploy an application a frontend and a backend tier using docker.
 
 ### Parts
 
@@ -75,6 +75,14 @@ echo $AWS_EIP
 ~~~
 
 If everything worked as planned you should be presented with a "Taiga" page.  You can login to the app with the username="admin" and password="123123"
+
+___
+
+### Let the Instructor know
+
+Send a screenshot of the running application to the instructor make sure to include the address field of your browser to show the URL.
+
+___
 
 When you are finished you can stop the docker-compose with "ctl-c".  If you want to start docker-compose in the background without dumping logs to the terminal you can use:
 

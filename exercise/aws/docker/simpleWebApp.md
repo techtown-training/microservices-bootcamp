@@ -3,7 +3,7 @@
 
 ### Objective
 
-
+Run a simple static web site from a Docker container.
 
 ### Parts
 
@@ -43,6 +43,14 @@ In addition to that we should still see the container running on the system:
 ~~~shell
 docker container ls
 ~~~
+
+___
+
+### Let the Instructor know
+
+Share the list of container with to the instructor make sure it includes the webApp container.
+
+___
 
 To stop the "webApp" container we can us "docker container stop":
 

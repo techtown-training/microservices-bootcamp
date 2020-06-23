@@ -3,14 +3,14 @@
 
 ### Objective
 
-
+Run a simle javascript application in a Docker container.
 
 ### Parts
 
 
 # Docker Stateless WebApp
 
-In this exercise we will build and deploy a more complex but yet stateless web application.  We inculded the code in the git repo that was added during exercise 3.  Let's change to that directory so we have the source files to build our web application:
+In this exercise we will build and deploy a more complex but yet stateless web application.  We included the code in the git repo that was added during exercise 3.  Let's change to that directory so we have the source files to build our web application:
 
 ~~~shell
 cd ~/microservices-bootcamp/exercise/aws/source/docker/stateless/
@@ -43,6 +43,14 @@ echo $AWS_EIP
 ~~~
 
 As before with a local browser connect to you web application at "http://<AWS_EIP>".  You should be presented with a simple page including the APP_NAME passed in as an environment variable.
+
+___
+
+### Let the Instructor know
+
+Send a screenshot of the running application to the instructor make sure to include the address field of your browser to show the URL.
+
+___
 
 Let's stop our "stateless" container:
 

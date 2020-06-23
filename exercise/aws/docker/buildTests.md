@@ -3,7 +3,7 @@
 
 ### Objective
 
-
+Run inline tests using Gradle on Docker.
 
 ### Parts
 
@@ -67,4 +67,8 @@ The actual tests can be found in the 'src/test/java/com.tomasulo.sample/infrastr
 gradle wrapper clean integrationTest
 ~~~
 
-When the test finish look for the "BUILD SUCCESSFUL" message in additon to a summary of the "actionable tasks" that where run.
+When the test finish look for the "BUILD SUCCESSFUL" message in addition to a summary of the "actionable tasks" that where run.
+
+### Let the Instructor know
+
+Send a screenshot of the "BUILD SUCCESSFUL" message to the instructor to indicate that you have completed the exercise.

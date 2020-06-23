@@ -7,16 +7,19 @@ Install Docker on Lab instance.  Run First Docker Containers.  Review Docker CLI
 
 ### Parts
 
-[Part 1: Install Docker](#install-docker)
+[Install Docker](#install-docker)
+[Add user to docker group](#add-user-to-docker-group)
+[Verify Docker](#verify-docker)
 
-# Install Docker
+___
+
+## Install Docker
 
 In this exercise we will install the current version of Docker on the Ubuntu Lab instance.
 
 Linux Distributions like Ubuntu, Debian, RHEL and CentOS all have a distribution managed docker package avalible in the official repositories but that distro managed version of Docker tends to be out-of-date.  Typically it is best to install a more current version of Docker by utilizing a repository managed by Docker to install Docker CE (Community Edition).
 
-
-## Install Docker on Ubuntu
+### Install Docker on Ubuntu
 
 First we need to have some packages that need to be installed.  Yes, these packages are more then likely already installed but it does not hurt to verify:
 ~~~shell
@@ -58,7 +61,9 @@ sudo apt-mark hold docker-ce
 sudo apt-mark hold docker-ce-cli
 ~~~
 
-#### Add user to docker group
+___
+
+## Add user to docker group
 
 To access Docker without sudo we can add a restricted user to the "docker" group.  We will do this for these labs but be aware that it is trivial to gain access to the entire system if you have write access to the docker socket.  So outside of the lab environments distribute this power with care:
 
@@ -73,7 +78,9 @@ newgrp docker
 newgrp ubuntu
 ~~~
 
-#### Verify Docker
+___
+
+## Verify Docker
 
 Now let us verify that docker is installed and we can call the Docker CLI:
 ~~~bash
@@ -81,3 +88,12 @@ docker version
 ~~~
 
 The results should show the Client and Server docker versions.
+
+___
+
+### Let the Instructor know
+
+When you have completed the installation and displayed the Docker version.  Share with the Instructor the "Client" and "Engine"
+version of Docker.
+
+___

@@ -1,9 +1,6 @@
 # Microservices: AWS
 
-
-### Objective
-
-Labs
+Microservice Exercises on AWS
 
 ### Parts
 
@@ -27,32 +24,34 @@ Labs
 
 [Exercise 11: Wordpress On Kubernetes](k8s/wordpressOnK8s.md)
 
-[Exercise 12: Push image to ECR](ecr/pushImageToRegistry.md)
+* [Exercise 12: The Sock Shop](k8s/sockShop.md)
 
-[Exercise 13: Pull image from ECR](ecr/pullImageFromRegistry.md)
+[Exercise 13: Push image to ECR](ecr/pushImageToRegistry.md)
 
-[Exercise 14: Fargate running Containers](fargate/runningContainers.md)
+[Exercise 14: Pull image from ECR](ecr/pullImageFromRegistry.md)
 
-[Exercise 15: Fargate scaling the Application](fargate/scalingTheApp.md)
+[Exercise 15: Fargate running Containers](fargate/runningContainers.md)
 
-*** [Exercise 16: Fargate Stateless Web Application](fargate/statelessWebApp.md)
+[Exercise 16: Fargate scaling the Application](fargate/scalingTheApp.md)
 
-*** [Exercise 17: Fargate Multi-Tier Application](fargate/multiTierApp.md)
+* [Exercise 17: Fargate Stateless Web Application](fargate/statelessWebApp.md)
 
-*** [Exercise 18: Wordpress on Fargate](fargate/wordpressOnFargate.md)
+* [Exercise 18: Fargate Multi-Tier Application](fargate/multiTierApp.md)
 
-[Exercise 19: Microservice deploy Thumbnail Service](fargate/microserviceDeployThumbnailService.md)
+* [Exercise 19: Wordpress on Fargate](fargate/wordpressOnFargate.md)
 
-[Exercise 20: Microservice deploy User Profile Service](fargate/microserviceDeployUserProfileService.md)
+[Exercise 20: Microservice deploy Thumbnail Service](fargate/microserviceDeployThumbnailService.md)
 
-[Exercise 21: Microservice deploy Contacts Service](fargate/microserviceDeployContactsService.md)
+[Exercise 21: Microservice deploy User Profile Service](fargate/microserviceDeployUserProfileService.md)
 
-[Exercise 22: Microservice deploy User Interface Service](fargate/microserviceDeployUserInterfaceService.md)
+[Exercise 22: Microservice deploy Contacts Service](fargate/microserviceDeployContactsService.md)
 
-[Exercise 23: Microservice deploy Auto Scale Service](fargate/microserviceAutoScaleUserInterfaceService.md)
+[Exercise 23: Microservice deploy User Interface Service](fargate/microserviceDeployUserInterfaceService.md)
 
-*** [Exercise 24: Microservice deploy Code Pipeline](fargate/microserviceCodePipeline.md)
+[Exercise 24: Microservice deploy Auto Scale Service](fargate/microserviceAutoScaleUserInterfaceService.md)
 
-*** [Exercise 25: Microservice deploy Clean Up Service](fargate/microserviceCleanUp.md)
+*** [Exercise 25: Microservice deploy Code Pipeline](fargate/microserviceCodePipeline.md)
 
-## [Exercise 26: Deploy Custom Service](fargate/deployCustomService.md)
+*** [Exercise 26: Microservice deploy Clean Up Service](fargate/microserviceCleanUp.md)
+
+[Exercise 27: Deploy Custom Service](fargate/deployCustomService.md)

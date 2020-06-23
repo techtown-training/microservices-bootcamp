@@ -3,7 +3,7 @@
 
 ### Objective
 
-
+To deploy the Wordpress application on Kubernetes.
 
 ### Parts
 
@@ -35,6 +35,14 @@ echo $AWS_EIP
 Now we should be able to connect to the Wordpress instance at https://<AWS_EIP>/
 
 You will need to accept the self-signed certificate to continue to the Wordpress site.
+
+___
+
+### Let the Instructor know
+
+Send a screenshot of the running application to the instructor make sure to include the address field of your browser to show the URL.
+
+___
 
 When finished we can cleanup with one command also:
 

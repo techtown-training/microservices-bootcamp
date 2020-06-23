@@ -3,11 +3,11 @@
 
 ### Objective
 
-
+Setup Kubernetes on an Ubuntu machine using MicroK8s.
 
 ### Parts
 
-
+[Setup K8s](#setup-kubernetes)
 
 
 ## Setup kubernetes
@@ -52,7 +52,15 @@ We also can look and see whet Kubernetes services are currently running within t
 microk8s.kubectl get services
 ~~~
 
-On last optional thing that we can do is add an alias for "kubectl" as that is the typical command that we normally would use to call the Kubernetes CLI:
+___
+
+### Let the Instructor know
+
+Share the list of nodes & services with the Instructor.
+
+___
+
+One last optional thing that we can do is add an alias for "kubectl" as that is the typical command that we normally would use to call the Kubernetes CLI:
 
 ~~~shell
 alias kubectl='microk8s.kubectl'

@@ -3,7 +3,7 @@
 
 ### Objective
 
-
+Demonstrate DNS discovery within Kubernetes.
 
 ### Parts
 
@@ -68,6 +68,14 @@ Let's also demonstrate we can connect to the "nginx" service:
 ~~~shell
 curl http://nginx
 ~~~
+
+___
+
+### Let the Instructor know
+
+When you have connected to the site from one pod to another.  Take a screen shot with the "curl" command and the results and share it with the Instructor.
+
+___
 
 When you are finished with the pod we have a shell running in, you can exit it by typing "exit" or "ctl-d".  That pod will cleanup after itself because we started it with the "--rm" option.
 

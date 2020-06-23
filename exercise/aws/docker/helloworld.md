@@ -3,13 +3,15 @@
 
 ### Objective
 
-
+In this exercise we will run a basic Docker container.  Why not start with Hello World!
 
 ### Parts
 
+[Docker Hello World](#docker-hello-world)
+[Remove the container](#remove-the-container)
+[Remove the images](#remove-the-images)
 
-
-# Docker Hello World!
+## Docker Hello World!
 
 ### Docker: First container
 
@@ -57,7 +59,7 @@ docker container logs ${DOCKER_HELLOWORLD_CONTAINER}
 
 In this command as mentioned before we utilize an environment variable to identify the container instance.  You can replace that with the "Container ID" or the "Name" of the container.  Also as a help on many systems including these lab instances tab-complete is available.  Give it a try!   
 
-#### Remove the container
+## Remove the container
 
 Let's clean up after ourselves and remove the "stopped" container:
 
@@ -101,6 +103,15 @@ List the current containers and notice the recently exited ubuntu container:
 docker container ls -a
 ~~~
 
+___
+
+### Let the Instructor know
+
+Before cleaning up copy the line showing the "helloworld" container from the listting and share it with the instructor via the online chat or through an email.
+
+___
+
+
 As we did with the hello-world container let's store the "Container ID" in an environment variable:
 
 ~~~shell
@@ -113,7 +124,7 @@ Let's again remove the stopped container:
 docker container rm ${DOCKER_UBUNTU_CONTAINER}
 ~~~
 
-#### Remove the images
+## Remove the images
 
 We have one finial thing that we can optionally clean up.  we need to remove the images that where downloaded for "hello-world:latest" and "ubuntu:latest":
 
