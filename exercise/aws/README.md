@@ -24,7 +24,7 @@ Microservice Exercises on AWS
 
 [Exercise 10: Wordpress On Kubernetes](k8s/wordpressOnK8s.md)
 
-* [Exercise 11: The Sock Shop](k8s/sockShop.md)
+** Exercise 11: The Sock Shop [](k8s/sockShop.md)
 
 [Exercise 12: Push image to ECR](ecr/pushImageToRegistry.md)
 
@@ -50,8 +50,8 @@ Microservice Exercises on AWS
 
 [Exercise 23: Microservice deploy Auto Scale Service](fargate/microserviceAutoScaleUserInterfaceService.md)
 
-*** [Exercise 24: Microservice deploy Code Pipeline](fargate/microserviceCodePipeline.md)
+_removed:_ Exercise 24: Microservice deploy Code Pipeline [](fargate/microserviceCodePipeline.md)
 
-*** [Exercise 25: Microservice deploy Clean Up Service](fargate/microserviceCleanUp.md)
+_removed:_ Exercise 25: Microservice deploy Clean Up Service [](fargate/microserviceCleanUp.md)
 
 [Exercise 26: Deploy Custom Service](fargate/deployCustomService.md)
