@@ -34,6 +34,9 @@ Clone the "stable" `taiga-back` and `taiga-front-dist` repos as submodules:
 
 ~~~shell
 git clone -b stable https://github.com/taigaio/taiga-back.git taiga-back
+~~~
+
+~~~shell
 git clone -b stable https://github.com/taigaio/taiga-front-dist.git taiga-front-dist
 ~~~
 
