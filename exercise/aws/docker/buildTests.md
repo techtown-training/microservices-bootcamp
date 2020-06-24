@@ -69,6 +69,10 @@ gradle wrapper clean integrationTest
 
 When the test finish look for the "BUILD SUCCESSFUL" message in addition to a summary of the "actionable tasks" that where run.
 
+___
+
 ### Let the Instructor know
 
 Send a screenshot of the "BUILD SUCCESSFUL" message to the instructor to indicate that you have completed the exercise.
+
+___
