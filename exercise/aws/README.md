@@ -30,7 +30,7 @@ Microservice Exercises on AWS
 
 * [Exercise 10: Wordpress On Kubernetes](k8s/wordpressOnK8s.md)
 
-* _removed:_ Exercise 11: The Sock Shop [](k8s/sockShop.md)
+* [Exercise 11: The Sock Shop](k8s/sockShop.md)
 
 ##### ECR
 
