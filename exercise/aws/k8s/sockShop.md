@@ -125,7 +125,7 @@ Ingress:
 microk8s.kubectl get ingress -n sock-shop
 ~~~
 
-## Optional Extra (advanced)
+## __Optional__ Extra (advanced)
 
 If you have time and are up for a "learning challenge", see if you can get some monitoring working with Prometheus and Grafana on your cluster.  The challenge is to use the upstream instructions that will need some adjustments for your environment
 
@@ -135,7 +135,7 @@ _Hint: You will not be able to copy and paste directly unless you are in the cor
 
 It will require some work especially if you are new to k8s but it would be a good learning experience. It is Optional but if you have time and are up for a challenge go for it.  Send a screenshot to your instructor if you do.  Maybe there are bonus points. ;)
 
-## Clean up
+## Clean up (run even if you skipped the _Optional Extra_ section)
 
 When we are finished we can delete Sock Shop application from the k8s cluster:
 
@@ -151,7 +151,9 @@ microk8s.kubectl delete namespace sock-shop
 
 ## Stop k8s
 
+~~~shell
 sudo microk8s.stop
 sudo microk8s.disable
+~~~
 
 ___

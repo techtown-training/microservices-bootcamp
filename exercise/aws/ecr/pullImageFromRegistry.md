@@ -32,6 +32,8 @@ Now let's pull and run an image based on the image we pushed to the ECR, notice 
 docker run -d --name FromECR -p 80:80 ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${LAB_NUMBER}-repo/nginx:1.17
 ~~~
 
+_Note: If there is an issue starting the `FromECR` container because of a port conflict make sure that [k8s/SockShop](../k8s/sockShop.md) is stopped.  You can find the instruction to stop it at then end of that exercise_
+
 We should now see the container running with the name "FromECR":
 
 ~~~shell

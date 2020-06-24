@@ -50,8 +50,10 @@ aws ecs register-task-definition --cli-input-json file://$HOME/microservices-boo
 Now let's again checkout the registered task definitions on our AWS account.  We should have one that correlates to our lab instance ID:
 
 ~~~shell
-aws ecs list-task-definitions
+aws ecs list-task-definitions | grep ${LAB_NUMBER}
 ~~~
+
+## Start the service
 
 We need to store the task definition ID for our registered task into an environment variable to use later:
 
@@ -64,8 +66,6 @@ We should now have the task definition stored in the environment variable ${TASK
 ~~~bash
 echo ${TASK_DEFINITION}
 ~~~
-
-## Start the service
 
 Now that we have the task definition defined let's create the service that runs that task within Fargate on our own fargate cluster:
 
