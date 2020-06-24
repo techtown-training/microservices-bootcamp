@@ -50,7 +50,7 @@ It would be nice to be able to interact with microk8s without having to escalate
 sudo usermod -a -G microk8s $USER
 ~~~
 
-If you remember from the installing Docker exercise, you will need to get your shell to read the new group to make it useful.  Go ahead and log out and log back in within a new shell.
+If you remember from the installing Docker exercise, __you will need to get your shell to read the new group to make it useful.  Go ahead and log out and log back in within a new shell.__
 
 Once you have restarted your shell.  Let's test it by displaying the "nodes" (hosts part of the kubernetes cluster) within this cluster without using sudo:
 
