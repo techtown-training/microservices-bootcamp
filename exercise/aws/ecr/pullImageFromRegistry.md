@@ -15,13 +15,13 @@
 In this exercise we will pull and use the image we pushed to the ECR.  First let's make sure we remove the local image tag:
 
 ~~~shell
-docker image rm ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${LAB_NUMBER}-repo/nginx:1.17
+docker image rm ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${LAB_NUMBER}-repo/nginx:1.18
 ~~~
 
 Also just to make sure let's remove the image local upstream tag also:
 
 ~~~shell
-docker image rm nginx:1.17
+docker image rm nginx:1.18
 ~~~
 
 ## Pull and Run image from ECR as container
@@ -29,10 +29,10 @@ docker image rm nginx:1.17
 Now let's pull and run an image based on the image we pushed to the ECR, notice it pulling the image from the ECR:
 
 ~~~shell
-docker run -d --name FromECR -p 80:80 ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${LAB_NUMBER}-repo/nginx:1.17
+docker run -d --name FromECR -p 80:80 ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${LAB_NUMBER}-repo/nginx:1.18
 ~~~
 
-_Note: If there is an issue starting the `FromECR` container because of a port conflict make sure that [k8s/SockShop](../k8s/sockShop.md) is stopped.  You can find the instruction to stop it at then end of that exercise_
+_Note: If there is an issue starting the `FromECR` container because of a port conflict on port 80 make sure that [k8s/SockShop](../k8s/sockShop.md) is stopped.  You can find the instruction to stop it at then end of that exercise.  Don't forget to remove the "Created" but not "Started" image before attempting to "run" a new image again with the same name. ;)_
 
 We should now see the container running with the name "FromECR":
 
@@ -78,7 +78,7 @@ docker rm FromECR
 And to finish cleaning up lets remove the image from the local image store:
 
 ~~~shell
-docker image rm ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${LAB_NUMBER}-repo/nginx:1.17
+docker image rm ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${LAB_NUMBER}-repo/nginx:1.18
 ~~~
 
 ___

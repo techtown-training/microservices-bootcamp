@@ -159,7 +159,10 @@ aws ecs list-tasks --cluster fargate-cluster-${LAB_NUMBER}
 
 ___
 
-## Customize the Microservice
+
+
+
+# Customize the Microservice
 
 Customize the Microservice
 
@@ -199,7 +202,8 @@ RUN apk add --no-cache nginx && \
 mkdir /run/nginx && \
 rm /etc/nginx/nginx.conf && \
 wget -P /etc/nginx/ https://raw.githubusercontent.com/p42/nginx-s6-alpine-docker/master/container-files/etc/nginx/nginx.conf && \
-wget -P /etc/services.d/ https://raw.githubusercontent.com/p42/nginx-s6-alpine-docker/master/container-files/etc/services.d/nginx/run
+mkdir /etc/services.d/nginx && \
+wget -P /etc/services.d/nginx/ https://raw.githubusercontent.com/p42/nginx-s6-alpine-docker/master/container-files/etc/services.d/nginx/run
 
 RUN echo '<html> <head> <title>myFargate</title> <style>body {margin-top: 40px;} </style> </head><body> <div style=text-align:center> <h1>myFargate</h1> <h2>Congratulations!</h2> <p>My application is running in Fargate.</p> </div></body></html>' > /var/lib/nginx/html/index.html
 
@@ -243,7 +247,7 @@ cd ~/myFargate/task
 ~~~
 
 ~~~bash
-cp ~/microservices-bootcamp/exercise/aws/fargate/source/custom/template-custom-task.json myfargate-task.json
+cp ~/microservices-bootcamp/exercise/aws/source/fargate/custom/template-custom-task.json myfargate-task.json
 ~~~
 
 Let's make some local modifications to our task definitions to include our unique lab ID.  We will edit the task definition file in place using 'sed':
@@ -323,3 +327,37 @@ aws ec2 describe-network-interfaces --network-interface-ids ${TASK_NETWORK_INTER
 ~~~
 
 Since you are running a web service you can try connecting to that IP using a local browser on your machine over http.  So you should connect to "http://<FargateServiceIP>", replacing "FargateServiceIP" with the IP returned from the previous command.  If all goes well you should be presented with a webpage customized for your specific lab instance.
+
+___
+
+
+## Clean up
+
+Next let's cleanup after ourselves.  Before we can remove our service we first need to shutdown the tasks running for that service.  We can do that by setting our "desired-count" to "0":
+
+~~~shell
+aws ecs update-service --cluster fargate-cluster-${LAB_NUMBER} --service myfargate-service-${LAB_NUMBER} --desired-count=0
+~~~
+
+After a few seconds the task should shutdown at which point we can remove the service completely:
+
+~~~shell
+aws ecs delete-service --cluster fargate-cluster-${LAB_NUMBER} --service myfargate-service-${LAB_NUMBER}
+~~~
+
+We also can remove our task definition:
+
+~~~shell
+aws ecs deregister-task-definition --task-definition ${MYTASK_DEFINITION}
+~~~
+
+##  verify service and task removal
+
+Now we can verify that we have stopped the services:
+
+~~~shell
+aws ecs list-services --cluster fargate-cluster-${LAB_NUMBER}
+aws ecs list-tasks --cluster fargate-cluster-${LAB_NUMBER}
+~~~
+
+___

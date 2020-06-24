@@ -47,7 +47,7 @@ aws ecr describe-repositories | grep ${LAB_NUMBER}
 As I mentioned before we will be using an upstream nginx image for this exercise.  Let's pull that image into the local image store first:
 
 ~~~shell
-docker pull nginx:1.17
+docker pull nginx:1.18
 ~~~
 
 ## Tag image with ECR host and namespace
@@ -55,7 +55,7 @@ docker pull nginx:1.17
 Now that we have the image local on our Linux instance, we need to "tag" that image as the unique name used in the ECR including the ECR hostname.  It does include stuff like what AWS account it is on and what AWS region the ECR is located in.  We will assign that tag with the "docker tag" context:
 
 ~~~shell
-docker tag nginx:1.17 ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${LAB_NUMBER}-repo/nginx:1.17
+docker tag nginx:1.18 ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${LAB_NUMBER}-repo/nginx:1.18
 ~~~
 
 Now that that image is properly tagged we can now push it to the ECR:
@@ -63,7 +63,7 @@ Now that that image is properly tagged we can now push it to the ECR:
 ## Push image to ECR
 
 ~~~shell
-docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${LAB_NUMBER}-repo/nginx:1.17
+docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${LAB_NUMBER}-repo/nginx:1.18
 ~~~
 
 We can now verify that the image has been added by describing it:
