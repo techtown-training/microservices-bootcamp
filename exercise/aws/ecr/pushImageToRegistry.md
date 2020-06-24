@@ -39,7 +39,7 @@ aws ecr create-repository --repository-name ${LAB_NUMBER}-repo/nginx
 We can get a list of the repositories by describing them:
 
 ~~~shell
-aws ecr describe-repositories
+aws ecr describe-repositories | grep ${LAB_NUMBER}
 ~~~
 
 ## Get an image to use for exercise
