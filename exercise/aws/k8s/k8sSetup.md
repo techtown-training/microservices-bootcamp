@@ -10,6 +10,18 @@ Setup Kubernetes on an Ubuntu machine using MicroK8s.
 [Setup K8s](#setup-kubernetes)
 
 
+## Git Pull
+
+Sometimes there are changes to the exercises as we move through the class sessions.  Unfortunately hands-on exercises do not always age well.  So let's make sure that we have the latest version of the class repo.
+
+~~~shell
+cd ~/microservices-bootcamp/
+git pull
+~~~
+
+If there are any local changes that are preventing the "git pull" from merging we may have to work through those allow the command to complete.
+
+
 ## Setup kubernetes
 
 In this exercise we will be demonstrating DNS discovery to locate and connect to services in a cluster.  We will be utilizing Kubernetes in this lab.  We will be using a small simple distribution of Kubernetes known as microk8s.  Microk8s packages Kubernetes in a simple snap package and eliminates some of the complexities normally associated with installing Kubernetes.
