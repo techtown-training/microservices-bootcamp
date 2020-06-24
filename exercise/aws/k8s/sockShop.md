@@ -80,7 +80,7 @@ microk8s.kubectl apply -f complete-demo.yaml
 
 Notice all the different k8s resources that where created?
 
-Connecting to the Elastic IP of your AWS host should not present you with the Sock Shop frontend
+Connecting to the Elastic IP of your AWS host after some time should present you with the Sock Shop frontend
 
 ___
 
@@ -148,5 +148,10 @@ Finally we also can remove the `sock-shop` namespace:
 ~~~shell
 microk8s.kubectl delete namespace sock-shop
 ~~~
+
+## Stop k8s
+
+sudo microk8s.stop
+sudo microk8s.disable
 
 ___

@@ -16,7 +16,7 @@ In this exercise we will run our first workload in AWS Fargate.  We will first c
 Before we get started let's see if there are any task definitions utilizing the "aws ecs" command context:
 
 ~~~shell
-aws ecs list-task-definitions
+aws ecs list-task-definitions | grep ${LAB_NUMBER}
 ~~~
 
 Since we have not created a task definition for your lab instance yet, let's do that now.  For this lab all the source files exist on disk.  First we will switch to that directory:
