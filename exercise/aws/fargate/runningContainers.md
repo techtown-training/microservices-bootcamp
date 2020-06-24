@@ -9,9 +9,7 @@
 
 
 
-
-
-# Running Containers in AWS Fargate
+## Running Containers in AWS Fargate
 
 In this exercise we will run our first workload in AWS Fargate.  We will first create task definitions.  The task definitions are where we will define the work that will be done as containers within Fargate.  After that we will create a Service that runs the tasks as defined.
 
@@ -27,6 +25,8 @@ Since we have not created a task definition for your lab instance yet, let's do 
 cd ~/microservices-bootcamp/exercise/aws/source/fargate/runningContainers/
 ~~~
 
+## Create task file
+
 Next we will start with the example task template file, but we will make a copy of it for our local changes:
 
 ~~~shell
@@ -38,6 +38,8 @@ Let's make some local modifications to our task definitions to include our uniqu
 ~~~shell
 sed -ie "s/#00LAB00#/${LAB_NUMBER}/g" fargate-task.json
 ~~~
+
+## Register the task
 
 Now take a look at the "fargate-task.json" file to get an understanding of what is being defined within this specific task.  When you are ready let's register the task definition with AWS:
 
@@ -63,6 +65,8 @@ We should now have the task definition stored in the environment variable ${TASK
 echo ${TASK_DEFINITION}
 ~~~
 
+## Start the service
+
 Now that we have the task definition defined let's create the service that runs that task within Fargate on our own fargate cluster:
 
 ~~~shell
@@ -80,6 +84,8 @@ In addition to listing the services on our cluster we also can list the running 
 ~~~shell
 aws ecs list-tasks --cluster fargate-cluster-${LAB_NUMBER}
 ~~~
+
+## Connect to service task
 
 We do need to figure out what IP fargate assigned to our running service.  For that we first need to have the task ID stored in an environment variable:
 
@@ -113,6 +119,17 @@ aws ec2 describe-network-interfaces --network-interface-ids ${TASK_NETWORK_INTER
 
 Try connecting to that IP using a local browser on your machine over http.  So you should connect to "http://<FargateServiceIP>", replacing "FargateServiceIP" with the IP returned from the previous command.  If all goes well you should be presented with a webpage customized for your specific lab instance.
 
+___
+
+### Let the Instructor know
+
+Send a screenshot of the webpage provided by your Fargate task.
+
+___
+
+
+## Clean up
+
 Next let's cleanup after ourselves.  Before we can remove our service we first need to shutdown the tasks running for that service.  We can do that by setting our "desired-count" to "0":
 
 ~~~shell
@@ -131,7 +148,8 @@ We also can remove our task definition:
 aws ecs deregister-task-definition --task-definition ${TASK_DEFINITION}
 ~~~
 
-# verify service and task removal
+##  verify service and task removal
+
 Now we can verify that we have stopped the services:
 
 ~~~shell
@@ -141,13 +159,17 @@ aws ecs list-tasks --cluster fargate-cluster-${LAB_NUMBER}
 
 ___
 
-Customize the Micro-service
+## Customize the Microservice
+
+Customize the Microservice
 
 In this section the desire is to build on skills we have used in the previous labs to build our own docker image, push that image to an ECR and finally deploy that image as a task on a Fargate service.
 
 I have some examples in this directory but the idea is for you to customize build your own images.
 
 So lets have some local directories to work in:
+
+### Create project files
 
 ~~~shell
 mkdir -p ~/myFargate/image
@@ -184,6 +206,8 @@ RUN echo '<html> <head> <title>myFargate</title> <style>body {margin-top: 40px;}
 ENTRYPOINT ["/init"]
 ~~~
 
+## Build and Tag the image
+
 Now let's bulid that image:
 
 ~~~shell
@@ -196,6 +220,8 @@ tag that image for ECR:
 docker tag myfargate:latest ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${LAB_NUMBER}-repo/myfargate:latest
 ~~~
 
+## Push image to the repository
+
 Before we push the image to the ECR we first need to create the repository:
 
 ~~~shell
@@ -203,11 +229,15 @@ aws ecr create-repository --repository-name ${LAB_NUMBER}-repo/myfargate
 ~~~
 
 Now that that image is properly tagged we can now push it to the ECR:
+
 ~~~shell
 docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${LAB_NUMBER}-repo/myfargate:latest
 ~~~
 
+## Register the task
+
 Now lets switch directory to work on our task definitions:
+
 ~~~shell
 cd ~/myFargate/task
 ~~~
@@ -246,6 +276,8 @@ You should see the registered task definitions on our AWS account:
 aws ecs list-task-definitions | grep ${LAB_NUMBER}
 ~~~
 
+## Start the service
+
 We need to store the task definition ID for our registered task into an environment variable to use later:
 
 ~~~shell
@@ -257,6 +289,8 @@ Now that we have the task definition defined let's create the service that runs 
 ~~~shell
 aws ecs create-service --cluster fargate-cluster-${LAB_NUMBER} --service-name myfargate-service-${LAB_NUMBER} --task-definition ${MYTASK_DEFINITION} --desired-count 1 --launch-type "FARGATE" --network-configuration "awsvpcConfiguration={subnets=[${LAB_SUBNET}],securityGroups=[${LAB_SECURITYGROUP}],assignPublicIp=ENABLED}"
 ~~~
+
+## Connect to the service
 
 We can checkout what services are running on our lab:
 

@@ -8,6 +8,7 @@
 ### Parts
 
 
+__This section needs much administrator access to AWS__
 
 ___
 

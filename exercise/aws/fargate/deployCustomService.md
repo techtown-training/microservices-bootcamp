@@ -13,4 +13,4 @@ This exercise is to put every we have gone through together.  This time complete
 - Discover that tasks IP address and connect to the service task
 - Share with your instructor Dockerfiles, ECS Task files, ECS Service files and the running IP to demonstrate your work
 
-Durring this exercise you are welcome to use the AWS-CLI, the AWS Console or a combination of the two.  Just make sure you collect the files you used to share with the Instructor
+During this exercise you are welcome to use the AWS-CLI, the AWS Console or a combination of the two.  Just make sure you collect the files you used to share with the Instructor

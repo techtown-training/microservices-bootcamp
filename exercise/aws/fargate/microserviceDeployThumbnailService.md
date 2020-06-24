@@ -7,7 +7,11 @@
 
 ### Parts
 
+___
 
+## Application Overview
+
+![Application Architecture](images/application-architecture.png)
 
 ___
 

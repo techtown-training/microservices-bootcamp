@@ -41,10 +41,10 @@ Let's preserve the origional version so can compare the changes:
 mv complete-demo.yaml complete-demo-orig.yaml
 ~~~
 
-Now we can copy the new version of the `complet-demo.yaml` into place:
+Now we can copy the new version of the `complete-demo.yaml` into place:
 
 ~~~shell
-cp ~/microservices-bootcamp/exercises/aws/source/k8s/sockShop/complet-demo.yaml complet-demo.yaml
+cp ~/microservices-bootcamp/exercises/aws/source/k8s/sockShop/complete-demo.yaml complete-demo.yaml
 ~~~
 
 We can compare the canges that where made.  We can use the 'diff' tool to show the differences between the two files.  Look at the output to see what has changed.  Notices the "APIVersion" has been changed on the "Deployment" resources and a "selector" has been added for each.  At the end we also added a k8s ingress resource to provide an application layer proxy from TCP port 80 and 443:
