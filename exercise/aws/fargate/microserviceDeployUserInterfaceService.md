@@ -78,7 +78,7 @@ export LAB_NUMBER_SHORT=`echo $LAB_NUMBER | sed 's/^lab//g'`
 
 aws elbv2 create-rule --listener-arn "<ALBListenerArn>" \
 --priority 1${LAB_NUMBER_SHORT}1 \
---conditions Field=path-pattern,Values="/${LAB_NUMBER}/"" \
+--conditions Field=path-pattern,Values="/${LAB_NUMBER}/" \
 --actions Type=forward,TargetGroupArn="<UserInterfaceServiceALBTargetGroupArn>"
 ~~~
 
