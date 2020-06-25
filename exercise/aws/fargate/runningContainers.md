@@ -249,6 +249,12 @@ Before we push the image to the ECR we first need to create the repository:
 aws ecr create-repository --repository-name ${LAB_NUMBER}-repo/myfargate
 ~~~
 
+And make sure you are properly logged into the ERC:
+
+~~~shell
+aws ecr get-login --no-include-email | bash
+~~~
+
 Now that that image is properly tagged we can now push it to the ECR:
 
 ~~~shell

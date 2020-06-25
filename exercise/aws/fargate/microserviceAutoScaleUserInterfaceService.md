@@ -7,7 +7,7 @@ Set an autoscaler for the User Interface Microservice.
 
 ### Parts
 
-
+__Note: This lab has an issue near the end with relation to how we have a single ALB serving multilpe instances of the application. It does not effect the integrity of the exercise as is the load test connects and scales the incorrect instance__
 ___
 
 ## AWS Interface Note:
@@ -135,6 +135,10 @@ aws cloudwatch put-metric-alarm \
 ~~~
 
 5. Let us now simulate load to test the autoscaling.
+
+__As noted near the beginning of this exercise, there is currently an issue that needs some work to separate traffic when multiple lab instances are completing this exercise simultaneously.  It works if you are completing this exercise on your own but it does not currently work as expected when multiple instances of this exercise are working through the same ALB as the infrastructure is currently defined for this class.__
+
+__Read through this section but there is no need to actually run the `ab` command.  It will not hurt anything but you will not see your "tasks" scaling.  It will scale the initial instance of this lab instead.__   
 
 We will be using the "ab" utility that is found in the "apache2-utils" package.  Make the utility is installed.
 
