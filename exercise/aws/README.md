@@ -38,7 +38,7 @@ Microservice Exercises on AWS
 
 * [Exercise 13: Pull image from ECR](ecr/pullImageFromRegistry.md)
 
-##### Fargate
+##### Fargate - Intro
 
 * [Exercise 14: Fargate running Containers](fargate/runningContainers.md)
 
@@ -50,6 +50,8 @@ Microservice Exercises on AWS
 
 * [Exercise 18: Wordpress on Fargate](fargate/wordpressOnFargate.md)
 
+##### Fargate - Microservices
+
 * [Exercise 19: Microservice deploy Thumbnail Service](fargate/microserviceDeployThumbnailService.md)
 
 * [Exercise 20: Microservice deploy User Profile Service](fargate/microserviceDeployUserProfileService.md)
@@ -58,12 +60,12 @@ Microservice Exercises on AWS
 
 * [Exercise 22: Microservice deploy User Interface Service](fargate/microserviceDeployUserInterfaceService.md)
 
-* [Exercise 23: Microservice deploy Auto Scale Service](fargate/microserviceAutoScaleUserInterfaceService.md)
+* ** [Exercise 23: Microservice deploy Auto Scale Service](fargate/microserviceAutoScaleUserInterfaceService.md)
 
 * _removed:_ Exercise 24: Microservice deploy Code Pipeline [](fargate/microserviceCodePipeline.md)
 
 * _removed:_ Exercise 25: Microservice deploy Clean Up Service [](fargate/microserviceCleanUp.md)
 
-##### Custom
+##### Fargate - Custom
 
 * [Exercise 26: Deploy Custom Service](fargate/deployCustomService.md)
