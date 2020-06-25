@@ -225,6 +225,8 @@ Try connecting to that IP using a local browser on your machine over http.  So y
 
 If everything worked as planned you should be presented with a "Taiga" page.  You can login to the app with the username="admin" and password="123123".
 
+## Clean up
+
 Next let's cleanup after ourselves.  Before we can remove our service we first need to shutdown the tasks running for that service.  We can do that by setting our "desired-count" to "0":
 
 ~~~shell
