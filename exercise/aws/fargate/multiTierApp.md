@@ -84,13 +84,7 @@ docker image ls
 Make sure we are logged into the ECR:
 
 ~~~shell
-aws ecr get-login  | sed 's/-e none //g' > ~/docker.login
-~~~
-
-We stored the login command in a local file "docker.login".  Let's now run that command that includes the login credentials and have our local docker client ready to push images:
-
-~~~shell
-bash ~/docker.login
+aws ecr get-login --no-include-email | bash
 ~~~
 
 Push the image to ECR:
