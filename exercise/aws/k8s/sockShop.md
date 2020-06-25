@@ -7,9 +7,13 @@ Deploy Sock Shop Microservices Application on Kubernetes.
 
 ### Parts
 
+__Optional__
+
 ### Warning
 
 _This lab currently takes to many resources on a single node K8s cluster, do not apply it if you have less then 4GB of memory on a single node K8s cluster_
+
+___
 
 ## Install Sock-Shop Application
 

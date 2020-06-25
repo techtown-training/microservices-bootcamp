@@ -3,11 +3,9 @@
 
 ### Objective
 
-
+Deploy the Contacts Microservice on Fargate ECS.
 
 ### Parts
-
-
 
 
 ___

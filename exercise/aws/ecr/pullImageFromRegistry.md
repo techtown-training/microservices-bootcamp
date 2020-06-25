@@ -3,12 +3,12 @@
 
 ### Objective
 
-
+Pull an image from AWS ECR and run a local Docker container using that image.
 
 ### Parts
 
 
-
+___
 
 ### Clean up local image
 

@@ -8,7 +8,7 @@ To deploy the Wordpress application on Kubernetes.
 ### Parts
 
 
-
+___
 
 # Wordpress on Kubernetes
 

@@ -3,32 +3,43 @@
 
 ### Objective
 
+Install Wordpress on Fargate ECS.
 
+## Task Definiton
 
-### Parts
-
+Change to the proper working directory:
 
 ~~~shell
 cd ~/microservices-bootcamp/exercise/aws/source/fargate/wordpress/
 ~~~
 
+List the current task definitions for your lab instance, there probably currently are none:
+
 ~~~shell
 aws ecs list-task-definitions | grep ${LAB_NUMBER}
 ~~~
+
+Copy the task template:
 
 ~~~shell
 cp template-fargate-wordpress-task.json fargate-wordpress-task.json
 ~~~
 
-Let's make some local modifications to our task definitions to include our unique lab ID.  We will edit the task definition file in place using 'sed':
+Let's make some local modifications to our task definitions to include our unique lab ID.  We will edit the task definition file in place using 'sed'.
+
+Set the lab number:
 
 ~~~shell
 sed -ie "s/#00LAB00#/${LAB_NUMBER}/g" fargate-wordpress-task.json
 ~~~
 
+Set the AWS Account ID:
+
 ~~~shell
 sed -ie "s/#00AWSACCOUNTID00#/${AWS_ACCOUNT_ID}/g" fargate-wordpress-task.json
 ~~~
+
+Now we can register the task:
 
 ~~~shell
 aws ecs register-task-definition --cli-input-json file://$HOME/microservices-bootcamp/exercise/aws/source/fargate/wordpress/fargate-wordpress-task.json
@@ -40,21 +51,33 @@ Now let's again checkout the registered task definitions on our AWS account.  We
 aws ecs list-task-definitions | grep ${LAB_NUMBER}
 ~~~
 
-###
+## ECS Service
+
+Query for the task definition ID:
 
 ~~~shell
 export TASK_DEFINITION_WORDPRESS=`aws ecs list-task-definitions --output text | grep fargate-wordpress-${LAB_NUMBER} | head -n1 | cut -d/ -f2`
 ~~~
 
+Verify that ID:
+
 ~~~shell
 echo ${TASK_DEFINITION_WORDPRESS}
 ~~~
+
+Create the service:
 
 ~~~shell
 aws ecs create-service --cluster fargate-cluster-${LAB_NUMBER} --service-name fargate-wordpress-${LAB_NUMBER} --task-definition ${TASK_DEFINITION_WORDPRESS} --desired-count 1 --launch-type "FARGATE" --network-configuration "awsvpcConfiguration={subnets=[${LAB_SUBNET}],securityGroups=[${LAB_SECURITYGROUP}],assignPublicIp=ENABLED}"
 ~~~
 
-We can checkout what services are running on our lab:
+Wait for the service to start, It should return to your shell when the service is started:
+
+~~~shell
+aws ecs wait services-stable --cluster fargate-cluster-${LAB_NUMBER} --services fargate-wordpress-${LAB_NUMBER}
+~~~
+
+Once that service starts you can now checkout what services are running on our lab:
 
 ~~~shell
 aws ecs list-services --cluster fargate-cluster-${LAB_NUMBER}
@@ -65,6 +88,8 @@ In addition to listing the services on our cluster we also can list the running 
 ~~~shell
 aws ecs list-tasks --cluster fargate-cluster-${LAB_NUMBER}
 ~~~
+
+## Connect to Wordpress
 
 We do need to figure out what IP fargate assigned to our running service.  For that we first need to have the task ID stored in an environment variable:
 
@@ -98,6 +123,14 @@ aws ec2 describe-network-interfaces --network-interface-ids ${TASK_NETWORK_INTER
 
 Try connecting to that IP using a local browser on your machine over http.  So you should connect to "http://<FargateServiceIP>", replacing "FargateServiceIP" with the IP returned from the previous command.  If all goes well you should be presented with a webpage customized for your specific lab instance.
 
+___
+
+### Let the Instructor know
+
+Nice Job, now try to login to the Wordpress instance and take a screenshot to share with the instructor.
+
+___
+
 Next let's cleanup after ourselves.  Before we can remove our service we first need to shutdown the tasks running for that service.  We can do that by setting our "desired-count" to "0":
 
 ~~~shell
@@ -123,3 +156,5 @@ Now we can verify that we have stopped the services:
 aws ecs list-services --cluster fargate-cluster-${LAB_NUMBER}
 aws ecs list-tasks --cluster fargate-cluster-${LAB_NUMBER}
 ~~~
+
+___

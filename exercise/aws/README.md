@@ -44,11 +44,11 @@ Microservice Exercises on AWS
 
 * [Exercise 15: Fargate scaling the Application](fargate/scalingTheApp.md)
 
-* ** [Exercise 16: Fargate Stateless Web Application](fargate/statelessWebApp.md)
+* [Exercise 16: Fargate Stateless Web Application](fargate/statelessWebApp.md)
 
 * ** [Exercise 17: Fargate Multi-Tier Application](fargate/multiTierApp.md)
 
-* ** [Exercise 18: Wordpress on Fargate](fargate/wordpressOnFargate.md)
+* [Exercise 18: Wordpress on Fargate](fargate/wordpressOnFargate.md)
 
 * [Exercise 19: Microservice deploy Thumbnail Service](fargate/microserviceDeployThumbnailService.md)
 

@@ -3,12 +3,12 @@
 
 ### Objective
 
-
+Push a Docker image to ECR
 
 ### Parts
 
 
-
+___
 
 # Push Image to ECR Registry
 

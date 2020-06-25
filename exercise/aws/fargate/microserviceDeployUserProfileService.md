@@ -3,7 +3,7 @@
 
 ### Objective
 
-
+Deploy a User Profile micro service on Fargate ECS.
 
 ### Parts
 

@@ -3,7 +3,7 @@
 
 ### Objective
 
-
+Clean up after the Microservice on AWS Fargate labs.
 
 ### Parts
 

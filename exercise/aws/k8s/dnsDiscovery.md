@@ -8,6 +8,7 @@ Demonstrate DNS discovery within Kubernetes.
 ### Parts
 
 
+___
 
 # DNS Discovery
 
@@ -89,3 +90,5 @@ In Kubernetes the service is loosely coupled to the deployment so we also should
 ~~~bash
 kubectl delete service nginx
 ~~~
+
+___

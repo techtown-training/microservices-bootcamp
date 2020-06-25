@@ -3,11 +3,22 @@
 
 ### Objective
 
+Run  a basic container on AWS ECS Fargate.
 
+___
 
-### Parts
+## Git Pull
 
+Sometimes there are changes to the exercises as we move through the class sessions.  Unfortunately hands-on exercises do not always age well.  So let's make sure that we have the latest version of the class repo.
 
+~~~shell
+cd ~/microservices-bootcamp/
+git pull
+~~~
+
+If there are any local changes that are preventing the "git pull" from merging we may have to work through those allow the command to complete.
+
+___
 
 ## Running Containers in AWS Fargate
 
@@ -123,7 +134,7 @@ ___
 
 ### Let the Instructor know
 
-Send a screenshot of the webpage provided by your Fargate task.
+Send a screenshot of the webpage provided by your Fargate task to the instructor.
 
 ___
 

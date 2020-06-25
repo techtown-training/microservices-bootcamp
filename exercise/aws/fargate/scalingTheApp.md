@@ -19,7 +19,7 @@ aws ecs register-task-definition --cli-input-json file://$HOME/microservices-boo
 Verify the task definition:
 
 ~~~shell
-  aws ecs list-task-definitions
+aws ecs list-task-definitions | grep ${LAB_NUMBER}
 ~~~
 
 Store new task definition in ${TASK_DEFINITION}
@@ -60,6 +60,15 @@ After a short period of time you should now see 2 tasks running:
 aws ecs list-tasks --cluster fargate-cluster-${LAB_NUMBER}
 ~~~
 
+___
+
+### Let the Instructor know
+
+Send a screenshot showing the multiple Fargate ECS Tasks to the instructor.
+
+___
+
+
 Feel free to also experiment with the service utilizing the AWS counsel.
 
 ## Clean-up
@@ -90,3 +99,5 @@ Now we can verify that we have stopped the services:
 aws ecs list-services --cluster fargate-cluster-${LAB_NUMBER}
 aws ecs list-tasks --cluster fargate-cluster-${LAB_NUMBER}
 ~~~
+
+___

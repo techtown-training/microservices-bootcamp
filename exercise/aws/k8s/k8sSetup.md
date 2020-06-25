@@ -9,6 +9,7 @@ Setup Kubernetes on an Ubuntu machine using MicroK8s.
 
 [Setup K8s](#setup-kubernetes)
 
+___
 
 ## Git Pull
 
@@ -83,3 +84,5 @@ Let's also make this alias permeant:
 ~~~shell
 echo "alias kubectl='microk8s.kubectl'" >> ~/.bashrc
 ~~~
+
+___

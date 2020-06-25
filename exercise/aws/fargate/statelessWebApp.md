@@ -7,30 +7,47 @@
 
 ### Parts
 
+In this exercise we will run the a stateless web application from the earlier exercise this time in AWS Fargate ECS.  First change to the directory to build the stateless:
 
 ~~~shell
 cd ~/microservices-bootcamp/exercise/aws/source/fargate/stateless/image/
 ~~~
 
+Create the ECR repository:
+
 ~~~shell
 aws ecr create-repository --repository-name ${LAB_NUMBER}-repo/stateless
 ~~~
+
+You can verify that the ECR repository is created:
 
 ~~~shell
 aws ecr describe-repositories | grep ${LAB_NUMBER}-repo/stateless
 ~~~
 
+## Build the image
+
+Build the docker image that will be used by the stateless Fargate service:
+
 ~~~shell
 docker build -t stateless:fargate .
 ~~~
+
+Let's tag the image with the ECR required tag:
 
 ~~~shell
 docker tag stateless:fargate ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${LAB_NUMBER}-repo/stateless:fargate
 ~~~
 
+We can verify that the image exists and has the proper tag:
+
 ~~~shell
 docker image ls
 ~~~
+
+## Push the image to ECR
+
+Make sure we are logged into the ECR:
 
 ~~~shell
 aws ecr get-login  | sed 's/-e none //g' > ~/docker.login
@@ -42,17 +59,25 @@ We stored the login command in a local file "docker.login".  Let's now run that 
 bash ~/docker.login
 ~~~
 
+Once logged in we have authorization to push the image to ECR:
+
 ~~~shell
 docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${LAB_NUMBER}-repo/stateless:fargate
 ~~~
+
+## Create the ECS Task
 
 ~~~shell
 cd ~/microservices-bootcamp/exercise/aws/source/fargate/stateless/
 ~~~
 
+See what task are currently defined for your Lab instance, there should be none:
+
 ~~~shell
 aws ecs list-task-definitions | grep ${LAB_NUMBER}
 ~~~
+
+Copy the task template to a location we can work with:
 
 ~~~shell
 cp template-fargate-stateless-task.json fargate-stateless-task.json
@@ -64,13 +89,21 @@ Let's make some local modifications to our task definitions to include our uniqu
 sed -ie "s/#00LAB00#/${LAB_NUMBER}/g" fargate-stateless-task.json
 ~~~
 
+And we need to set the image name:
+
 ~~~shell
 sed -ie "s/#00IMAGE00#/${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com\/${LAB_NUMBER}-repo\/stateless:fargate/g" fargate-stateless-task.json
 ~~~
 
+The AWS account ID needs to be replaced also:
+
 ~~~shell
 sed -ie "s/#00AWSACCOUNTID00#/${AWS_ACCOUNT_ID}/g" fargate-stateless-task.json
 ~~~
+
+## Register the Task
+
+Now we can register the task that is defined in the `fargate-stateless-task.json` file:
 
 ~~~shell
 aws ecs register-task-definition --cli-input-json file://$HOME/microservices-bootcamp/exercise/aws/source/fargate/stateless/fargate-stateless-task.json
@@ -82,17 +115,27 @@ Now let's again checkout the registered task definitions on our AWS account.  We
 aws ecs list-task-definitions | grep ${LAB_NUMBER}
 ~~~
 
+## Create the Service:
+
+We need to get the defined task ID:
+
 ~~~shell
 export TASK_DEFINITION_STATELESS=`aws ecs list-task-definitions --output text | grep fargate-stateless-${LAB_NUMBER} | head -n1 | cut -d/ -f2`
 ~~~
+
+This command should return the task ID:
 
 ~~~shell
 echo ${TASK_DEFINITION_STATELESS}
 ~~~
 
+Now we have the information we need to start the Fargate ECS Service:
+
 ~~~shell
 aws ecs create-service --cluster fargate-cluster-${LAB_NUMBER} --service-name fargate-stateless-${LAB_NUMBER} --task-definition ${TASK_DEFINITION_STATELESS} --desired-count 1 --launch-type "FARGATE" --network-configuration "awsvpcConfiguration={subnets=[${LAB_SUBNET}],securityGroups=[${LAB_SECURITYGROUP}],assignPublicIp=ENABLED}"
 ~~~
+
+## Verify the service
 
 We can checkout what services are running on our lab:
 
@@ -138,6 +181,18 @@ aws ec2 describe-network-interfaces --network-interface-ids ${TASK_NETWORK_INTER
 
 Try connecting to that IP using a local browser on your machine over http.  So you should connect to "http://<FargateServiceIP>", replacing "FargateServiceIP" with the IP returned from the previous command.  If all goes well you should be presented with a webpage customized for your specific lab instance.
 
+
+___
+
+### Let the Instructor know
+
+Take a screenshot of webpage running from Fargate ECS, email it to the instructor.
+
+___
+
+
+## Clean up
+
 Next let's cleanup after ourselves.  Before we can remove our service we first need to shutdown the tasks running for that service.  We can do that by setting our "desired-count" to "0":
 
 ~~~shell
@@ -163,3 +218,5 @@ Now we can verify that we have stopped the services:
 aws ecs list-services --cluster fargate-cluster-${LAB_NUMBER}
 aws ecs list-tasks --cluster fargate-cluster-${LAB_NUMBER}
 ~~~
+
+___

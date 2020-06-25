@@ -3,11 +3,12 @@
 
 ### Objective
 
+Build a Code Pipeline to deploy a Microservice.
 
 
 ### Parts
 
-
+__This section needs much administrator access to AWS so it is not part of the current labs__
 
 ___
 
