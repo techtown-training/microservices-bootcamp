@@ -20,6 +20,12 @@ If there are any local changes that are preventing the "git pull" from merging w
 
 ___
 
+## AWS Interface Note:
+
+In this section we will be working directly with AWS.  The exercise demonstrates the steps needed to accomplish each specific task using the AWS-CLI.  This is works well and is a consistent way to interface with AWS.  Although the same tasks can be done via the web-based AWS Console using the CLI or the API are essential skills to have when automating workflow.  __As a learning exercise feel free to login to the AWS Console and reflect also what is happing there as you work though each step.__  The AWS Console is an excellent tool to not only assist in leaning but also with day to day monitoring and troubleshooting.   But do not become reliant on just the AWS Console, as was mentioned before, that interface alone does not help with automation.  Automation is an essential requirement for DevOps, Pipelining and of course Microservices.
+
+___
+
 ## Running Containers in AWS Fargate
 
 In this exercise we will run our first workload in AWS Fargate.  We will first create task definitions.  The task definitions are where we will define the work that will be done as containers within Fargate.  After that we will create a Service that runs the tasks as defined.

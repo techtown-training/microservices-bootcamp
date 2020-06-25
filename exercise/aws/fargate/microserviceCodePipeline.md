@@ -12,6 +12,12 @@ __This section needs much administrator access to AWS so it is not part of the c
 
 ___
 
+## AWS Interface Note:
+
+In this section we will be working directly with AWS.  The exercise demonstrates the steps needed to accomplish each specific task using the AWS-CLI.  This is works well and is a consistent way to interface with AWS.  Although the same tasks can be done via the web-based AWS Console using the CLI or the API are essential skills to have when automating workflow.  __As a learning exercise feel free to login to the AWS Console and reflect also what is happing there as you work though each step.__  The AWS Console is an excellent tool to not only assist in leaning but also with day to day monitoring and troubleshooting.   But do not become reliant on just the AWS Console, as was mentioned before, that interface alone does not help with automation.  Automation is an essential requirement for DevOps, Pipelining and of course Microservices.
+
+___
+
 # Create a CodePipeline for the User-Interface service
 
 We will now set up CI/CD for the **user-interface-service** using [AWS CodePipeline](https://aws.amazon.com/codepipeline/). The CodePipeline will be triggered whenever we push code changes to the [AWS CodeCommit](https://aws.amazon.com/codecommit/) repository. The CodePipeline will build the Docker image, push the new image to ECR and finally update the user-interface-service on ECS.
