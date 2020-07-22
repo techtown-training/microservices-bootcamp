@@ -85,7 +85,7 @@ This container is responsible for loading static data to redis datastore.
 
 ```
 # docker build -f Dockerfile.dataloader -t java_mvn_redis_loader:1.0 .
-FROM maven
+FROM maven:3.5
 
 RUN apt-get update
 RUN mkdir /code
