@@ -4,9 +4,9 @@ metadata:
   name: logreader
 spec:
   replicas: 1
-    selector:
-      matchLabels:
-        name: logreader
+  selector:
+    matchLabels:
+      name: logreader
   template:
     metadata:
       labels:
