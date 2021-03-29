@@ -38,7 +38,7 @@ Django = ">=1.11.23,<2"
 Markdown = "==3.1.1"
 Pillow = "*"
 Unidecode = "==0.4.20"
-Pygments = "==2.2.0"
+Pygments = "==2.7.4"
 oauthlib = {extras = ["signedtoken"],version = "*"}
 html5lib = "*"
 
