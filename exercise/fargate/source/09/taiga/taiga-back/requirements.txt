@@ -47,7 +47,7 @@ psd-tools==1.8.27
 psycopg2-binary==2.7.5
 pycparser==2.19
 pygments==2.2.0
-pyjwt==1.7.1
+pyjwt==2.4.0
 python-dateutil==2.7.5
 python-magic==0.4.15
 pytz==2019.3
