@@ -17,7 +17,8 @@ variable "aws_amis" {
     "us-east-1" = "ami-046842448f9e74e7d"
     "us-east-2" = "ami-0367b500fdcac0edc"
     "us-west-1" = "ami-0d58800f291760030"
-    "us-west-2" = "ami-0edf3b95e26a682df"
+    #"us-west-2" = "ami-0edf3b95e26a682df" # Bionic
+    "us-west-2" = "ami-03d5c68bab01f3496" # Focal
   }
 }
 

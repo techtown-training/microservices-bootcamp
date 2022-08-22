@@ -4,3 +4,5 @@ idea/*
 #target/
 #target/*
 .idea
+exercise/src_code/microservices_monolithic_docker/restful-test/target/
+.terraform.lock.hcl

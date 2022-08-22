@@ -6,9 +6,10 @@ resource "aws_instance" "dockerLab" {
   subnet_id                   = aws_subnet.labVPC_Subnet.id
   vpc_security_group_ids      = [aws_security_group.labVPC_Security_Group.id]
   count                       = var.instanceCount
-  provisioner "local-exec" {
-    command = "ANSIBLE_HOST_KEY_CHECKING=False AWS_ACCESS_KEY_ID=${var.aws_accessKey} AWS_SECRET_ACCESS_KEY=${var.aws_secretKey} ansible-playbook -i ec2.py playbooks/provision.yml -u ubuntu --become --private-key ~/.ssh/ASPE-Default.pem --limit ${self.public_ip} --extra-vars 'ip=${self.public_ip}' --extra-vars 'hostname=lab${count.index}' --extra-vars 'dockerversion=${var.dockerVersion}' --extra-vars 'labawsregion=${var.aws_region}' --extra-vars 'labawsaccess=${var.lab_aws_access_key}' --extra-vars 'labawssecret=${var.lab_aws_secret_key}'"
-  }
+ provisioner "local-exec" {
+   command = "ANSIBLE_HOST_KEY_CHECKING=False AWS_ACCESS_KEY_ID=${var.aws_accessKey} AWS_SECRET_ACCESS_KEY=${var.aws_secretKey} ansible-playbook -i ec2.py playbooks/provision.yml -u ubuntu --become --private-key ~/.ssh/ASPE-Default.pem --limit ${self.public_ip} --extra-vars 'ip=${self.public_ip}' --extra-vars 'hostname=lab${count.index}' --extra-vars 'dockerversion=${var.dockerVersion}' --extra-vars 'labawsregion=${var.aws_region}'"
+   # command = "ANSIBLE_HOST_KEY_CHECKING=False AWS_ACCESS_KEY_ID=${var.aws_accessKey} AWS_SECRET_ACCESS_KEY=${var.aws_secretKey} ansible-playbook -i ec2.py playbooks/provision.yml -u ubuntu --become --private-key ~/.ssh/ASPE-Default.pem --limit ${self.public_ip} --extra-vars 'ip=${self.public_ip}' --extra-vars 'hostname=lab${count.index}' --extra-vars 'dockerversion=${var.dockerVersion}' --extra-vars 'labawsregion=${var.aws_region}' --extra-vars 'labawsaccess=${var.lab_aws_access_key}' --extra-vars 'labawssecret=${var.lab_aws_secret_key}'"
+ }
   root_block_device {
     volume_type = var.aws_volume_type
     volume_size = var.aws_volume_size
