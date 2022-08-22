@@ -2,7 +2,7 @@ version: "3"
 
 services:
   retail_app:
-    image: tomcat
+    image: tomcat:7.0.108-jdk8
     depends_on:
       - "redis_loader"
     volumes:
