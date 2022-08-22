@@ -101,7 +101,7 @@ CMD ["mvn", "clean", "install", "-U"]
 version: "3"
 services:
   retail_app:
-    image: tomcat
+    image: tomcat:7.0.108-jdk8
     depends_on:
       - "redis_loader"
     volumes:
@@ -121,5 +121,5 @@ services:
     container_name: redis
     ports:
      - "6379:6379"
-#docker run -it -p 8080:8080 -v ~/restful-test/target/sample-monolithic-1.0.war:/usr/local/tomcat/webapps/sample-monolithic-1.0.war tomcat
+#docker run -it -p 8080:8080 -v ~/restful-test/target/sample-monolithic-1.0.war:/usr/local/tomcat/webapps/sample-monolithic-1.0.war tomcat:7.0.108-jdk8
 ```
