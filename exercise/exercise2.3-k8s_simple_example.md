@@ -28,7 +28,7 @@ spec:
         run: my-nginx
     spec:
       containers:
-      - image: nginx:1.11.0
+      - image: nginx:1.21.0
         name: my-nginx
         ports:
         - containerPort: 80
@@ -366,7 +366,7 @@ spec:
         run: my-nginx
     spec:
       containers:
-      - image: nginx:1.11.5
+      - image: nginx:1.21.1
         name: my-nginx
         ports:
         - containerPort: 80
@@ -417,7 +417,7 @@ Events:
   1m		1m		1	{deployment-controller }			Normal		ScalingReplicaSet	Scaled down replica set my-nginx-3800858182 to 0
 ```
 
-And now it's `1.11.5`, let's check out in the headers:
+And now it's `1.21.1`, let's check out in the headers:
 
 ```shell
 kubectl run -i -t --rm cli --image=tutum/curl --restart=Never
@@ -432,7 +432,7 @@ curl -v http://my-nginx
 > Accept: */*
 >
 < HTTP/1.1 200 OK
-< Server: nginx/1.9.1
+< Server: nginx/1.21.1
 ```
 
 Let's simulate a situation when a deployment fails and we need to rollback. Our deployment has a typo with a new file `my-nginx-typo.yaml`
@@ -457,7 +457,7 @@ spec:
         run: my-nginx
     spec:
       containers:
-      - image: nginx:1.91
+      - image: nginx:1.220
         name: my-nginx
         ports:
         - containerPort: 80
@@ -609,7 +609,7 @@ spec:
         run: my-nginx
     spec:
       containers:
-      - image: nginx:1.9.1
+      - image: nginx:1.22.0
         name: my-nginx
         ports:
         - containerPort: 80
