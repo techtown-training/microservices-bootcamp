@@ -3,8 +3,41 @@
 ### cd to the source code directory - {exercise/src_code/kubernetes_additional_exercise/ex3.1/}
 
 
-We shall use the 'yaml' files from the current directory 
+We shall use the 'yaml' files from the current directory
 
+# Add Persistent storage with OpenEBS
+
+Following are the basic steps to setup OpenEBS as a Persistent Volume provider for Kubernetes.  Much more info can be found on the [official documentation](https://docs.openebs.io/).
+
+## iSCSI
+OpenEBS provides block volume support through the iSCSI protocol. Therefore, the iSCSI client (initiator) presence on all Kubernetes nodes is required. Choose the platform below to find the steps to verify if the iSCSI client is installed and running or to find the steps to install the iSCSI client.
+
+```bash
+sudo apt-get install -y open-iscsi
+sudo systemctl enable iscsid
+sudo systemctl start iscsid
+```
+
+Verify that the initiator name is configured and the iSCSI services is running.
+```bash
+sudo cat /etc/iscsi/initiatorname.iscsi
+systemctl status iscsid
+```
+## Install OpenEBS
+
+OpenEBS can be installed on an existing Kubernetes cluster by applying the openebs-operator.yaml file.
+```bash
+kubectl apply -f https://openebs.github.io/charts/openebs-operator.yaml
+```
+
+We can verify the status of tho OpenEBS pods by looking at the pods in the openebs namespace.
+```bash
+kubectl get pods -n openebs -o wide
+```
+
+To set 'openebs-hostpath' as the default storageClass run this command.
+```bash
+kubectl patch storageclass openebs-hostpath -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
 ## Create your PersistentVolumes and PersistentVolumeClaims
 
 To deploy the PVC, run:
@@ -156,4 +189,3 @@ You will see status:released
 # kubectl delete pv wordpress-volume
 Still the directories you created in the master node won't get deleted, you may delete them manually
 ```
-
