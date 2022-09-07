@@ -109,7 +109,7 @@ You can spot IP in the overlay network assigned to pod. In my case it's `10.244.
 Let's try and see!
 
 ```shell
-kubectl run -i -t --rm cli --image=tutum/curl --restart=Never
+kubectl run -i -t --rm cli --image=project42/jumpbox --restart=Never -- /bin/bash
 curl http://10.244.33.109
 <!DOCTYPE html>
 <html>
@@ -291,7 +291,7 @@ This is our VIP that never changes and provides a static piece of configuration 
 
 
 ```shell
-kubectl run -i -t --rm cli --image=tutum/curl --restart=Never
+kubectl run -i -t --rm cli --image=project42/jumpbox --restart=Never -- /bin/bash
 curl http://10.100.68.75
 <!DOCTYPE html>
 <html>
@@ -315,7 +315,7 @@ It works! Wait, so you need to hardcode this VIP in your configuration? What if 
 Thankfully, k8s team thought about this as well, and we can simply do:
 
 ```shell
-kubectl run -i -t --rm cli --image=tutum/curl --restart=Never
+kubectl run -i -t --rm cli --image=project42/jumpbox --restart=Never -- /bin/bash
 curl http://my-nginx
 <!DOCTYPE html>
 ...
@@ -420,7 +420,7 @@ Events:
 And now it's `1.21.1`, let's check out in the headers:
 
 ```shell
-kubectl run -i -t --rm cli --image=tutum/curl --restart=Never
+kubectl run -i -t --rm cli --image=project42/jumpbox --restart=Never -- /bin/bash
 curl -v http://my-nginx
 
 * About to connect() to my-nginx port 80 (#0)
@@ -661,7 +661,7 @@ server {
 and finally, let's see it all in action:
 
 ```shell
-kubectl run -i -t --rm cli --image=tutum/curl --restart=Never
+kubectl run -i -t --rm cli --image=project42/jumpbox --restart=Never -- /bin/bash
 curl http://my-nginx
 hello, Kubernetes!
 ```
@@ -895,7 +895,7 @@ is `32321`. This is handy sometimes when you are working on-prem or locally.
 **Accessing the installation**
 
 ```shell
-kubectl run -i -t --rm cli --image=tutum/curl --restart=Never
+kubectl run -i -t --rm cli --image=project42/jumpbox --restart=Never -- /bin/bash
 curl http://mattermost
 
 <!DOCTYPE html>
