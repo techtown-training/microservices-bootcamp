@@ -12,9 +12,28 @@ sudo apt-get -y update
 sudo apt-get -y install default-jdk git maven redis-tools
 ```
 
-#### It is assumed that your machine has Docker installed in it. If not, please install Docker.
+#### Install Docker version 19.03
 
-### Note that docker-compose installation is needed only if your machine doesn't have docker-compose
+Install docker with the get.docker.com script.
+
+```bash
+curl -sSL https://get.docker.com | sudo VERSION=19.03 sh
+```
+
+Add your user to the docker group to allow docker commands to run without 'sudo'.
+
+```bash
+sudo usermod -aG docker $USER
+```
+
+Now logout and restart your shell so the group change can take effect.
+
+```bash
+exit
+```
+
+Restart your shell
+
 #### install docker-compose
 
 ```bash
@@ -24,13 +43,14 @@ sudo chmod +x /usr/local/bin/docker-compose
 
 ##### check docker and docker-compose
 ```bash
-sudo docker version
-sudo docker-compose version
+docker version
+docker-compose version
 ```
 
 ## Clone the git project
 
 ```bash
+cd ~/
 git clone https://github.com/techtown-training/microservices-bootcamp.git
 cd microservices-bootcamp/exercise/src_code/microservices_monolithic_docker/
 ```
@@ -46,17 +66,17 @@ cd ..
 #### build the Docker image for the maven project and redis data upload
 
 ```bash
-sudo docker build -f Dockerfile.dataloader -t java_mvn_redis_loader:1.0 .
+docker build -f Dockerfile.dataloader -t java_mvn_redis_loader:1.0 .
 ```
 
 #### run the docker-compose
 ```bash
-sudo docker-compose up -d
+docker-compose up -d
 ```
 
 #### check running docker containers
 ```bash
-sudo docker ps
+docker ps
 ```
 
 Wait until "redis_loader" container gets killed. <br>
@@ -67,19 +87,19 @@ This container is responsible for loading static data to redis datastore.
 ## Test the application
 
 #### Run below http either in browser or using curl (note: change the IP of your machine)
-* http://IP:8080/sample-monolithic-1.0/rest/retailDesign/getallstocks
-* http://IP:8080/sample-monolithic-1.0/rest/retailDesign/getallproducts
-* http://IP:8080/sample-monolithic-1.0/rest/retailDesign/getstock?productId=1
-* http://IP:8080/sample-monolithic-1.0/rest/retailDesign/getstock?productId=3
-* http://IP:8080/sample-monolithic-1.0/rest/retailDesign/getproduct?id=2
-* http://IP:8080/sample-monolithic-1.0/rest/retailDesign/getproduct?id=5
+* http://{IP}:8080/sample-monolithic-1.0/rest/retailDesign/getallstocks
+* http://{IP}:8080/sample-monolithic-1.0/rest/retailDesign/getallproducts
+* http://{IP}:8080/sample-monolithic-1.0/rest/retailDesign/getstock?productId=1
+* http://{IP}:8080/sample-monolithic-1.0/rest/retailDesign/getstock?productId=3
+* http://{IP}:8080/sample-monolithic-1.0/rest/retailDesign/getproduct?id=2
+* http://{IP}:8080/sample-monolithic-1.0/rest/retailDesign/getproduct?id=5
 
-* http://IP:8080/sample-monolithic-1.0/rest/retailDesign/combinedproduct?productId=1&id=1
-* http://IP:8080/sample-monolithic-1.0/rest/retailDesign/combinedproduct?productId=1&id=2
+* http://{IP}:8080/sample-monolithic-1.0/rest/retailDesign/combinedproduct?productId=1&id=1
+* http://{IP}:8080/sample-monolithic-1.0/rest/retailDesign/combinedproduct?productId=1&id=2
 
 <br>
 
-## Source code
+## Source code - For reference only
 
 <b>Docker file</b> for data loading to Redis
 
