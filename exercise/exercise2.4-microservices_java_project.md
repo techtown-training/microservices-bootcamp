@@ -10,9 +10,11 @@ Update the apt-get package manager and install necessary packages in the machine
 
 ### Step 2: Clone the git project
 Clone the existing git project (this may not be needed as it was done in the first exercise)
-<br>
-`git clone https://github.com/techtown-training/microservices-bootcamp.git`
-<br>
+
+```bash
+cd ~/microservices-bootcamp
+git pull
+```
 
 ### Step 3: Maven build shopfront service and build docker image
 Go to the shopfront project folder, build the maven project to create jar and build the docker image
@@ -84,7 +86,7 @@ Let's now test our application in the browser
 <br>
 The first option is to use NodePort IP and the port of the service.<br>
 <br>IP: `kubectl describe svc/stockmanager | grep -i ip`
-<br>Port: `kubectl describe svc/stockmanager | grep -i targetport` 
+<br>Port: `kubectl describe svc/stockmanager | grep -i targetport`
 <br><br>Now use the IP and the port from above to curl the service from within the kubernetes machine
 <br><br>`curl <IP>:<Port>/stocks | python3 -m json.tool`
 <br> The above Rest API is defined in stockmanager service to get all stocks. This API returns "productId, sku, amountAvailable" as it's defined in the stockmanager service.
@@ -103,7 +105,7 @@ The first option is to use NodePort IP and the port of the service.<br>
 **Check productcatalogue service**
 Similarly for productcatalogue, get the clusterIP and port by
 <br>IP: `kubectl describe svc/productcatalogue | grep -i ip`
-<br>Port: `kubectl describe svc/productcatalogue | grep -i targetport` 
+<br>Port: `kubectl describe svc/productcatalogue | grep -i targetport`
 
 <br><br>`curl <IP>:<Port>/products | python3 -m json.tool`
 <br> The above Rest API is defined in productcatalogue service to get all products. This API returns "productId, name, description, price" as it's defined in the productcatalogue service.
@@ -122,11 +124,11 @@ Alternatively, we can test this in browser
 <br>
 
 **Check shopfront service**
-<br> 
+<br>
 Now check shopfront service that calls the other two services internally
 <br>For shopfront, get the clusterIP and port by
 <br>IP: `kubectl describe svc/shopfront | grep -i ip`
-<br>Port: `kubectl describe svc/shopfront | grep -i targetport` 
+<br>Port: `kubectl describe svc/shopfront | grep -i targetport`
 
 <br><br>`curl <IP>:<Port>/products | python3 -m json.tool`
 <br> The above Rest API is defined in shopfront service to get all products.
