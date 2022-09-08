@@ -99,6 +99,20 @@ This container is responsible for loading static data to redis datastore.
 
 <br>
 
+#### Example using the curl command
+
+```bash
+sudo apt install -y jq
+curl http://127.0.0.1:8080/sample-monolithic-1.0/rest/retailDesign/getallstocks
+curl http://127.0.0.1:8080/sample-monolithic-1.0/rest/retailDesign/getallproducts
+curl http://127.0.0.1:8080/sample-monolithic-1.0/rest/retailDesign/getstock?productId=1
+curl http://127.0.0.1:8080/sample-monolithic-1.0/rest/retailDesign/getstock?productId=3
+curl http://127.0.0.1:8080/sample-monolithic-1.0/rest/retailDesign/getproduct?id=2
+curl http://127.0.0.1:8080/sample-monolithic-1.0/rest/retailDesign/getproduct?id=5
+curl http://127.0.0.1:8080/sample-monolithic-1.0/rest/retailDesign/combinedproduct?productId=1&id=1
+curl http://127.0.0.1:8080/sample-monolithic-1.0/rest/retailDesign/getproduct?id=5
+```
+
 ## Source code - For reference only
 
 <b>Docker file</b> for data loading to Redis
