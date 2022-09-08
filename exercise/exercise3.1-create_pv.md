@@ -38,11 +38,13 @@ kubectl get pods -n openebs -o wide
 To set 'openebs-hostpath' as the default storageClass run this command.
 ```bash
 kubectl patch storageclass openebs-hostpath -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+```
+
 ## Create your PersistentVolumes and PersistentVolumeClaims
 
 To deploy the PVC, run:
 
-```
+```bash
 kubectl apply -f mysql-pvc.yaml
 kubectl apply -f wordpress-pvc.yaml
 ```
